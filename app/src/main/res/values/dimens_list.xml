@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="d_list_small_layout_height">48dp</dimen>
+    <dimen name="d_list_normal_layout_height">56dp</dimen>
+    <dimen name="d_list_large_layout_height">72dp</dimen>
+    <dimen name="d_list_vertical_padding">16dp</dimen>
+
+    <dimen name="d_list_single_text_bottom_padding">4dp</dimen>
+</resources>

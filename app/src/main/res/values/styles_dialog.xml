@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="s_dialog_title_layout_material_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/d_dialog_title_bottom_margin</item>
+        <item name="android:layout_marginLeft">@dimen/d_dialog_text_margin</item>
+        <item name="android:layout_marginRight">@dimen/d_dialog_text_margin</item>
+    </style>
+
+    <style name="s_dialog_message_layout_material_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/d_dialog_text_margin</item>
+        <item name="android:layout_marginLeft">@dimen/d_dialog_text_margin</item>
+        <item name="android:layout_marginRight">@dimen/d_dialog_text_margin</item>
+    </style>
+
+    <style name="s_dialog_button_layout_material_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_marginLeft">@dimen/d_dialog_button_margin</item>
+        <item name="android:layout_marginRight">@dimen/d_dialog_button_margin</item>
+    </style>
+
+    <style name="s_dialog_list_layout_material_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Status bar -->
+    <dimen name="d_status_bar_height">24dp</dimen>
+
+    <!-- Toolbar -->
+    <dimen name="d_toolbar_height">56dp</dimen>
+    <dimen name="d_toolbar_horizontal_margin">4dp</dimen>
+    <dimen name="d_toolbar_title_left_margin">72dp</dimen>
+    <dimen name="d_toolbar_image_button_size">48dp</dimen>
+    <dimen name="d_toolbar_image_button_padding">12dp</dimen>
+
+    <!-- Menu -->
+    <dimen name="d_menu_margin">16dp</dimen>
+    <dimen name="d_menu_avatar_image_size">64dp</dimen>
+    <dimen name="d_menu_avatar_image_radius">32dp</dimen>
+    <dimen name="d_menu_user_info_height">48dp</dimen>
+</resources>

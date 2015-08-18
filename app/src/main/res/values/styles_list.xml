@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Single text list item -->
+    <style name="s_list_single_text_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/d_list_small_layout_height</item>
+        <item name="android:paddingLeft">@dimen/d_list_vertical_padding</item>
+        <item name="android:paddingRight">@dimen/d_list_vertical_padding</item>
+    </style>
+
+    <style name="s_list_single_line_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:paddingBottom">@dimen/d_list_single_text_bottom_padding</item>
+        <item name="android:textColor">@color/c_text_black_87</item>
+    </style>
+</resources>

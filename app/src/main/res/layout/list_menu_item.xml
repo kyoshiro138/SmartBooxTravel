@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/s_list_single_text_layout_style">
+
+    <TextView
+        android:id="@+id/tv_menu_text"
+        style="@style/s_list_single_line_text_style"
+        android:text="@string/app_name" />
+</RelativeLayout>
