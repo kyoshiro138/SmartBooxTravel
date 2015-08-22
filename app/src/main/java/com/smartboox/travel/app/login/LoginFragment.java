@@ -4,10 +4,10 @@ import android.view.View;
 
 import com.smartboox.travel.R;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
-import com.smartboox.travel.core.view.textfield.SinglelineTextField;
+import com.smartboox.travel.core.view.textfield.SingleLineTextField;
 
 public class LoginFragment extends AppFragment {
-    private SinglelineTextField mTextFieldUsername;
+    private SingleLineTextField mTextFieldUsername;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -16,7 +16,7 @@ public class LoginFragment extends AppFragment {
 
     @Override
     protected void bindView(View rootView) {
-        mTextFieldUsername = (SinglelineTextField) rootView.findViewById(R.id.et_login_username);
+        mTextFieldUsername = (SingleLineTextField) rootView.findViewById(R.id.et_login_username);
     }
 
     @Override
