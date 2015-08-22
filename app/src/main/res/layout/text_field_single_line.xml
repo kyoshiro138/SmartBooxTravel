@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/stl_text_field_layout">
+
+    <EditText
+        android:id="@+id/text_field_input"
+        style="@style/stl_text_field_input_light" />
+
+    <View
+        android:id="@+id/text_field_divider"
+        style="@style/stl_text_field_divider_light"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp" />
+</RelativeLayout>

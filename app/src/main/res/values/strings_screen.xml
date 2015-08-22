@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- INTRO -->
+    <string name="s_screen_intro_title">SMART BOOX</string>
+
+    <!-- LOGIN -->
+    <string name="s_screen_login_username">Username</string>
+    <string name="s_screen_login_password">Password</string>
+</resources>

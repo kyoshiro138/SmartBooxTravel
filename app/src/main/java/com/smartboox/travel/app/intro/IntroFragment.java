@@ -7,7 +7,7 @@ import com.smartboox.travel.app.login.LoginFragment;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
 
 public class IntroFragment extends AppFragment {
-    private static final int INTRO_TIME_MILLISECONDS = 5*1000;
+    private static final int INTRO_TIME_MILLISECONDS = 3*1000;
     @Override
     protected int getFragmentLayoutResource() {
         return R.layout.fragment_intro;

@@ -23,7 +23,7 @@
             style="@style/s_menu_user_email_style"
             android:drawableEnd="@android:drawable/arrow_down_float"
             android:drawableRight="@android:drawable/arrow_down_float"
-            android:text="@string/app_name"/>
+            android:text="@string/s_app_name"/>
 
     </FrameLayout>
 
