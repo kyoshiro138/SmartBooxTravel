@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.smartboox.travel.R;
 import com.smartboox.travel.core.view.base.BaseRelativeLayout;
 
-public class SinglelineTextField extends BaseRelativeLayout implements View.OnFocusChangeListener {
+public class SingleLineTextField extends BaseRelativeLayout implements View.OnFocusChangeListener {
     private EditText mEdtInput;
     private View mDivider;
 
@@ -20,15 +20,15 @@ public class SinglelineTextField extends BaseRelativeLayout implements View.OnFo
         return R.layout.text_field_single_line;
     }
 
-    public SinglelineTextField(Context context) {
+    public SingleLineTextField(Context context) {
         super(context);
     }
 
-    public SinglelineTextField(Context context, AttributeSet attrs) {
+    public SingleLineTextField(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SinglelineTextField(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SingleLineTextField(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -72,7 +72,6 @@ public class SinglelineTextField extends BaseRelativeLayout implements View.OnFo
 
     @Override
     public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
-//        return super.requestFocus(direction, previouslyFocusedRect);
         return mEdtInput.requestFocus();
     }
 }
