@@ -9,56 +9,71 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/bg_card">
+        android:background="@drawable/bg_card"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="24dp">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/img_login_avatar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_default_avatar" />
+
+        <RelativeLayout
             android:id="@+id/layout_login_username"
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_below="@id/img_login_avatar">
+
+            <com.smartboox.travel.core.view.textfield.SingleLineTextField
+                android:id="@+id/tf_login_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_login_next"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/tf_login_username"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/c_primary_color500"
+                android:text="@string/s_btn_next"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_login_password"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_login_avatar"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_login_username"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username: " />
+                android:layout_height="wrap_content" />
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField
-                android:id="@+id/et_login_username"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_login_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_login_username"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_login_password"
-                android:layout_width="wrap_content"
+                android:id="@+id/tf_login_password"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Password: " />
-
-            <EditText
-                android:id="@+id/et_login_password"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_login_password"
-            android:orientation="horizontal">
+                android:layout_below="@id/tv_login_username" />
 
             <Button
-                android:id="@+id/btn_login_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/s_btn_login_account" />
-        </LinearLayout>
+                android:id="@+id/btn_login_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/tf_login_password"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/c_primary_color500"
+                android:text="@string/s_btn_sign_in"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+
+
     </RelativeLayout>
 </FrameLayout>

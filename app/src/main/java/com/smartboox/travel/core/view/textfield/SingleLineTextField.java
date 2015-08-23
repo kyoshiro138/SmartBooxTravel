@@ -3,10 +3,8 @@ package com.smartboox.travel.core.view.textfield;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.smartboox.travel.R;
 import com.smartboox.travel.core.view.base.BaseRelativeLayout;
@@ -73,5 +71,9 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
     @Override
     public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
         return mEdtInput.requestFocus();
+    }
+
+    public void setHint(int resId) {
+        mEdtInput.setHint(resId);
     }
 }

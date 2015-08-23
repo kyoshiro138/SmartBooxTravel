@@ -1,6 +1,7 @@
 package com.smartboox.travel.core.fragment;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,9 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements ViewTreeObserver.OnGlobalLayoutListener {
     protected View mRootView;
 
     protected abstract int getFragmentLayoutResource();
@@ -25,6 +27,8 @@ public abstract class BaseFragment extends Fragment {
         mRootView = inflater.inflate(getFragmentLayoutResource(), container, false);
 
         bindView(mRootView);
+
+        mRootView.getViewTreeObserver().addOnGlobalLayoutListener(this);
 
         return mRootView;
     }
@@ -49,4 +53,20 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void bindView(View rootView);
 
     protected abstract void loadData();
+
+    protected void onDisplayed() {
+
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        // Removing layout listener to avoid multiple calls
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            mRootView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        } else {
+            mRootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        }
+
+        onDisplayed();
+    }
 }
