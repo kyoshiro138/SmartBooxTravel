@@ -2,6 +2,7 @@ package com.smartboox.travel.core.animation;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -44,7 +45,7 @@ public class ZoomOutAnimator extends BaseAnimator implements ValueAnimator.Anima
     public void onAnimationUpdate(ValueAnimator animation) {
         int val = (Integer) animation.getAnimatedValue();
         ViewGroup.LayoutParams layoutParams = mAnimationView.getLayoutParams();
-
+        Log.d("ANIMATE", "ANIMATE2");
         int width = mViewWidth * val / 100;
         int height = mViewHeight * val / 100;
         float y = mViewYPosition + ((mViewHeight - height) / 2);

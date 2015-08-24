@@ -2,6 +2,7 @@ package com.smartboox.travel.core.animation;
 
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
+import android.util.Log;
 import android.view.View;
 
 public abstract class BaseAnimator implements Animator.AnimatorListener {
@@ -65,11 +66,12 @@ public abstract class BaseAnimator implements Animator.AnimatorListener {
 
     @Override
     public void onAnimationStart(Animator animation) {
-
+        Log.d("ANIMATE S", mTag);
     }
 
     @Override
     public void onAnimationEnd(Animator animation) {
+        Log.d("ANIMATE E", mTag);
         if (mAnimationEndListener != null) {
             mAnimationEndListener.onAnimationEnded(mTag, animation);
         }
@@ -77,11 +79,11 @@ public abstract class BaseAnimator implements Animator.AnimatorListener {
 
     @Override
     public void onAnimationCancel(Animator animation) {
-
+        Log.d("ANIMATE C", mTag);
     }
 
     @Override
     public void onAnimationRepeat(Animator animation) {
-
+        Log.d("ANIMATE R", mTag);
     }
 }
