@@ -1,18 +1,21 @@
 package com.smartboox.travel.app.login;
 
-import android.animation.Animator;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.smartboox.travel.R;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
+import com.smartboox.travel.core.animation.BaseAnimator;
 import com.smartboox.travel.core.animation.FadeInAnimator;
 import com.smartboox.travel.core.animation.FadeOutAnimator;
-import com.smartboox.travel.core.animation.OnAnimationEndListener;
+import com.smartboox.travel.core.animation.OnAnimationBeginListener;
+import com.smartboox.travel.core.animation.OnAnimationFinishedListener;
+import com.smartboox.travel.core.animation.ResizeAnimator;
 import com.smartboox.travel.core.animation.ZoomOutAnimator;
 import com.smartboox.travel.core.view.textfield.SingleLineTextField;
 
-public class LoginFragment extends AppFragment implements OnAnimationEndListener, View.OnClickListener {
+public class LoginFragment extends AppFragment
+        implements View.OnClickListener, OnAnimationFinishedListener, OnAnimationBeginListener {
     private SingleLineTextField mTextFieldUsername;
     private SingleLineTextField mTextFieldPassword;
     private View mLayoutLogin;
@@ -24,6 +27,7 @@ public class LoginFragment extends AppFragment implements OnAnimationEndListener
     private FadeInAnimator mFadeInAnimator;
     private FadeOutAnimator mFadeOutAnimator;
     private FadeOutAnimator mAvatarFadeOutAnimator;
+    private ResizeAnimator mResizeAnimator;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -55,46 +59,83 @@ public class LoginFragment extends AppFragment implements OnAnimationEndListener
         super.onDisplayed();
 
         if (mZoomAnimator == null) {
-            mZoomAnimator = new ZoomOutAnimator(mLayoutLogin);
-            mZoomAnimator.setOnAnimationEndListener(this);
+            mZoomAnimator = new ZoomOutAnimator();
+            mZoomAnimator.setAnimationView(mLayoutLogin);
+            mZoomAnimator.setOnAnimationFinishedListener(this);
         }
         if (mFadeOutAnimator == null) {
-            mFadeOutAnimator = new FadeOutAnimator(mLayoutUsername);
+            mFadeOutAnimator = new FadeOutAnimator();
+            mFadeOutAnimator.setAnimationView(mLayoutUsername);
+            mFadeOutAnimator.setOnAnimationBeginListener(this);
+
+            mLayoutPassword.setVisibility(View.VISIBLE);
+            mLayoutPassword.setAlpha(0.0f);
         }
-        if(mFadeInAnimator == null) {
-            mFadeInAnimator = new FadeInAnimator(mLayoutPassword);
+        if (mFadeInAnimator == null) {
+            mFadeInAnimator = new FadeInAnimator();
+            mFadeInAnimator.setOnAnimationFinishedListener(this);
         }
         if (mAvatarFadeOutAnimator == null) {
-            mAvatarFadeOutAnimator = new FadeOutAnimator(mImgViewAvatar, "AVATAR_FADE_OUT");
+            mAvatarFadeOutAnimator = new FadeOutAnimator("AVATAR_FADE_OUT");
+            mAvatarFadeOutAnimator.setAnimationView(mImgViewAvatar);
         }
-
+        if (mResizeAnimator == null) {
+            mResizeAnimator = new ResizeAnimator();
+        }
 
         mZoomAnimator.start();
-    }
-
-    @Override
-    public void onAnimationEnded(String tag, Animator animator) {
-        if(tag.equals(mZoomAnimator.getTag())) {
-            mFadeOutAnimator.start();
-            mAvatarFadeOutAnimator.start();
-        } else if(tag.equals(mFadeOutAnimator.getTag())) {
-            mFadeOutAnimator = new FadeOutAnimator(mLayoutPassword,"PASSWORD_FADE_OUT");
-            mFadeInAnimator.start();
-        } else if(tag.equals(mFadeInAnimator.getTag())) {
-            mFadeOutAnimator.start();
-        }
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login_next:
+                int widthChange = mLayoutPassword.getWidth() - mLayoutUsername.getWidth();
+                int heightChange = mLayoutPassword.getHeight() - mLayoutUsername.getHeight();
+                mResizeAnimator.setAnimationView(mLayoutLogin);
+                mResizeAnimator.setSizeChange(widthChange, heightChange);
+                mResizeAnimator.start();
+
+                mFadeInAnimator.setAnimationView(mLayoutUsername);
+                mFadeOutAnimator.setAnimationView(mLayoutPassword);
+                mFadeInAnimator.start();
                 break;
             case R.id.btn_login_sign_in:
+                widthChange = mLayoutUsername.getWidth() - mLayoutPassword.getWidth();
+                heightChange = mLayoutUsername.getHeight() - mLayoutPassword.getHeight();
+                mResizeAnimator.setAnimationView(mLayoutLogin);
+                mResizeAnimator.setSizeChange(widthChange, heightChange);
+                mResizeAnimator.start();
+
+                mFadeInAnimator.setAnimationView(mLayoutPassword);
+                mFadeOutAnimator.setAnimationView(mLayoutUsername);
+                mFadeInAnimator.start();
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onAnimationFinished(BaseAnimator animator, View animationView) {
+        String tag = animator.getTag();
+
+        if (tag.equals(mZoomAnimator.getTag())) {
+            mFadeOutAnimator.start();
+            mAvatarFadeOutAnimator.start();
+        } else if (tag.equals(mFadeInAnimator.getTag())) {
+            animationView.setVisibility(View.GONE);
+            mFadeOutAnimator.start();
+        }
+
+    }
+
+    @Override
+    public void onAnimationBegin(BaseAnimator animator, View animationView) {
+        String tag = animator.getTag();
+
+        if (tag.equals(mFadeOutAnimator.getTag())) {
+            animationView.setVisibility(View.VISIBLE);
         }
     }
 }

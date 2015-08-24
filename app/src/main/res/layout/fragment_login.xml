@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/c_primary_color500">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/c_primary_color500">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layout_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/bg_card"
+        android:orientation="vertical"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
 
@@ -17,63 +18,62 @@
             android:id="@+id/img_login_avatar"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
-            android:src="@drawable/img_default_avatar" />
+            android:src="@drawable/img_default_avatar"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/layout_login_username"
             android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/img_login_avatar">
+            android:layout_height="120dp"
+            android:gravity="bottom"
+            android:orientation="vertical">
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField
                 android:id="@+id/tf_login_username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/btn_login_next"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_below="@id/tf_login_username"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/c_primary_color500"
                 android:text="@string/s_btn_next"
-                android:textColor="@android:color/white" />
-        </RelativeLayout>
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/layout_login_password"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/img_login_avatar"
+            android:gravity="bottom"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_login_username"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField
                 android:id="@+id/tf_login_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_login_username" />
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/btn_login_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_below="@id/tf_login_password"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/c_primary_color500"
                 android:text="@string/s_btn_sign_in"
-                android:textColor="@android:color/white" />
-        </RelativeLayout>
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>

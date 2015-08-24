@@ -6,24 +6,29 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 public class FadeOutAnimator extends BaseAnimator implements ValueAnimator.AnimatorUpdateListener {
-    public FadeOutAnimator(View view) {
-        super(view);
+    public FadeOutAnimator() {
+        super();
     }
 
-    public FadeOutAnimator(View view, String tag) {
-        super(view, tag);
+    public FadeOutAnimator(String tag) {
+        super(tag);
     }
 
     @Override
-    protected Animator initAnimation(View view) {
+    protected Animator initAnimation() {
         ValueAnimator appearAnimation = ValueAnimator.ofFloat(0.0f, 1.0f);
-        appearAnimation.setDuration(500);
+        appearAnimation.setDuration(getDefaultDuration());
         appearAnimation.addUpdateListener(this);
         appearAnimation.setInterpolator(new AccelerateInterpolator());
 
-        view.setAlpha(0.0f);
-
         return appearAnimation;
+    }
+
+    @Override
+    public void setAnimationView(View view) {
+        super.setAnimationView(view);
+
+        view.setAlpha(0.0f);
     }
 
     @Override

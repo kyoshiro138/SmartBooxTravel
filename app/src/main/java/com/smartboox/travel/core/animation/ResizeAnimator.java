@@ -6,22 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 
-public class ZoomInAnimator extends BaseAnimator implements ValueAnimator.AnimatorUpdateListener {
+public class ResizeAnimator extends BaseAnimator implements ValueAnimator.AnimatorUpdateListener {
     private int mViewWidth;
     private int mViewHeight;
     private float mViewYPosition;
 
-    public ZoomInAnimator() {
+    private int mChangeWidth = 0;
+    private int mChangeHeight = 0;
+
+
+    public ResizeAnimator() {
         super();
     }
 
-    public ZoomInAnimator(String tag) {
+    public ResizeAnimator(String tag) {
         super(tag);
     }
 
     @Override
     protected Animator initAnimation() {
-        ValueAnimator appearAnimation = ValueAnimator.ofInt(100, 0);
+        ValueAnimator appearAnimation = ValueAnimator.ofInt(0, 100);
         appearAnimation.setDuration(getDefaultDuration());
         appearAnimation.addUpdateListener(this);
         appearAnimation.setInterpolator(new AccelerateInterpolator());
@@ -38,11 +42,18 @@ public class ZoomInAnimator extends BaseAnimator implements ValueAnimator.Animat
         mViewYPosition = view.getY();
     }
 
+    public void setSizeChange(int width, int height) {
+        mChangeWidth = width;
+        mChangeHeight = height;
+    }
+
     @Override
     public void onAnimationUpdate(ValueAnimator animation) {
         int val = (Integer) animation.getAnimatedValue();
-        int width = mViewWidth * val / 100;
-        int height = mViewHeight * val / 100;
+        int changeWidth = mChangeWidth * val / 100;
+        int changeHeight = mChangeHeight * val / 100;
+        int width = mViewWidth + changeWidth;
+        int height = mViewHeight + changeHeight;
         float y = mViewYPosition + ((mViewHeight - height) / 2);
 
         ViewGroup.LayoutParams layoutParams = mAnimationView.getLayoutParams();

@@ -12,24 +12,31 @@ public class ZoomOutAnimator extends BaseAnimator implements ValueAnimator.Anima
     private int mViewHeight;
     private float mViewYPosition;
 
-    public ZoomOutAnimator(View view) {
-        super(view);
+    public ZoomOutAnimator() {
+        super();
     }
 
-    public ZoomOutAnimator(View view, String tag) {
-        super(view, tag);
+    public ZoomOutAnimator(String tag) {
+        super(tag);
     }
 
     @Override
-    protected Animator initAnimation(View view) {
+    protected Animator initAnimation() {
+        ValueAnimator appearAnimation = ValueAnimator.ofInt(0, 100);
+        appearAnimation.setDuration(getDefaultDuration());
+        appearAnimation.addUpdateListener(this);
+        appearAnimation.setInterpolator(new AccelerateInterpolator());
+
+        return appearAnimation;
+    }
+
+    @Override
+    public void setAnimationView(View view) {
+        super.setAnimationView(view);
+
         mViewWidth = view.getMeasuredWidth();
         mViewHeight = view.getMeasuredHeight();
         mViewYPosition = view.getY();
-
-        ValueAnimator appearAnimation = ValueAnimator.ofInt(0, 100);
-        appearAnimation.setDuration(500);
-        appearAnimation.addUpdateListener(this);
-        appearAnimation.setInterpolator(new AccelerateInterpolator());
 
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
 
@@ -37,19 +44,16 @@ public class ZoomOutAnimator extends BaseAnimator implements ValueAnimator.Anima
         layoutParams.height = 0;
 
         view.setLayoutParams(layoutParams);
-
-        return appearAnimation;
     }
 
     @Override
     public void onAnimationUpdate(ValueAnimator animation) {
         int val = (Integer) animation.getAnimatedValue();
-        ViewGroup.LayoutParams layoutParams = mAnimationView.getLayoutParams();
-        Log.d("ANIMATE", "ANIMATE2");
         int width = mViewWidth * val / 100;
         int height = mViewHeight * val / 100;
         float y = mViewYPosition + ((mViewHeight - height) / 2);
 
+        ViewGroup.LayoutParams layoutParams = mAnimationView.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
 

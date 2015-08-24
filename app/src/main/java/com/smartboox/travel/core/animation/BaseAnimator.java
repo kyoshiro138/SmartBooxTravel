@@ -7,35 +7,45 @@ import android.view.View;
 
 public abstract class BaseAnimator implements Animator.AnimatorListener {
     private String mTag;
-    private OnAnimationEndListener mAnimationEndListener;
+    private OnAnimationFinishedListener mAnimationEndListener;
+    private OnAnimationBeginListener mAnimationBeginListener;
 
     protected View mAnimationView;
     protected Animator mAnimator;
 
-    public BaseAnimator(View view) {
-        mAnimationView = view;
+    public BaseAnimator() {
         mTag = this.getClass().getSimpleName();
 
-        mAnimator = initAnimation(mAnimationView);
+        mAnimator = initAnimation();
         if (mAnimator != null) {
             mAnimator.addListener(this);
         }
     }
 
-    public BaseAnimator(View view, String tag) {
-        mAnimationView = view;
+    public BaseAnimator(String tag) {
         mTag = tag;
 
-        mAnimator = initAnimation(mAnimationView);
+        mAnimator = initAnimation();
         if (mAnimator != null) {
             mAnimator.addListener(this);
         }
     }
 
-    protected abstract Animator initAnimation(View view);
+    protected abstract Animator initAnimation();
+
+    public void setAnimationView(View view) {
+        if (mAnimator != null && mAnimator.isRunning()) {
+            // Animation is running, not allow to change view
+            return;
+        }
+        mAnimationView = view;
+    }
 
     public void start() {
-        if (mAnimator != null && !mAnimator.isRunning()) {
+        if (mAnimationView != null && mAnimator != null && !mAnimator.isRunning()) {
+            if (mAnimationBeginListener != null) {
+                mAnimationBeginListener.onAnimationBegin(this, mAnimationView);
+            }
             mAnimator.start();
         }
     }
@@ -56,8 +66,12 @@ public abstract class BaseAnimator implements Animator.AnimatorListener {
         return mTag;
     }
 
-    public void setOnAnimationEndListener(OnAnimationEndListener listener) {
+    public void setOnAnimationFinishedListener(OnAnimationFinishedListener listener) {
         mAnimationEndListener = listener;
+    }
+
+    public void setOnAnimationBeginListener(OnAnimationBeginListener listener) {
+        mAnimationBeginListener = listener;
     }
 
     protected int getDefaultDuration() {
@@ -66,24 +80,24 @@ public abstract class BaseAnimator implements Animator.AnimatorListener {
 
     @Override
     public void onAnimationStart(Animator animation) {
-        Log.d("ANIMATE S", mTag);
+
     }
 
     @Override
     public void onAnimationEnd(Animator animation) {
         Log.d("ANIMATE E", mTag);
         if (mAnimationEndListener != null) {
-            mAnimationEndListener.onAnimationEnded(mTag, animation);
+            mAnimationEndListener.onAnimationFinished(this, mAnimationView);
         }
     }
 
     @Override
     public void onAnimationCancel(Animator animation) {
-        Log.d("ANIMATE C", mTag);
+
     }
 
     @Override
     public void onAnimationRepeat(Animator animation) {
-        Log.d("ANIMATE R", mTag);
+
     }
 }
