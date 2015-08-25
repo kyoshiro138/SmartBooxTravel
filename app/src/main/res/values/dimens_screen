@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LOGIN -->
+    <dimen name="d_login_layout_width">240dp</dimen>
+    <dimen name="d_login_layout_username_height">120dp</dimen>
+    <dimen name="d_login_layout_password_height">150dp</dimen>
+</resources>

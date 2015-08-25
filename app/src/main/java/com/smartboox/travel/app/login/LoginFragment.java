@@ -67,9 +67,6 @@ public class LoginFragment extends AppFragment
             mFadeOutAnimator = new FadeOutAnimator();
             mFadeOutAnimator.setAnimationView(mLayoutUsername);
             mFadeOutAnimator.setOnAnimationBeginListener(this);
-
-            mLayoutPassword.setVisibility(View.VISIBLE);
-            mLayoutPassword.setAlpha(0.0f);
         }
         if (mFadeInAnimator == null) {
             mFadeInAnimator = new FadeInAnimator();
@@ -90,10 +87,9 @@ public class LoginFragment extends AppFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login_next:
-                int widthChange = mLayoutPassword.getWidth() - mLayoutUsername.getWidth();
-                int heightChange = mLayoutPassword.getHeight() - mLayoutUsername.getHeight();
+                int heightChange = getResources().getDimensionPixelSize(R.dimen.d_login_layout_password_height) - getResources().getDimensionPixelSize(R.dimen.d_login_layout_username_height);
                 mResizeAnimator.setAnimationView(mLayoutLogin);
-                mResizeAnimator.setSizeChange(widthChange, heightChange);
+                mResizeAnimator.setSizeChange(0, heightChange);
                 mResizeAnimator.start();
 
                 mFadeInAnimator.setAnimationView(mLayoutUsername);
@@ -101,10 +97,9 @@ public class LoginFragment extends AppFragment
                 mFadeInAnimator.start();
                 break;
             case R.id.btn_login_sign_in:
-                widthChange = mLayoutUsername.getWidth() - mLayoutPassword.getWidth();
-                heightChange = mLayoutUsername.getHeight() - mLayoutPassword.getHeight();
+                heightChange = getResources().getDimensionPixelSize(R.dimen.d_login_layout_username_height) - getResources().getDimensionPixelSize(R.dimen.d_login_layout_password_height);
                 mResizeAnimator.setAnimationView(mLayoutLogin);
-                mResizeAnimator.setSizeChange(widthChange, heightChange);
+                mResizeAnimator.setSizeChange(0, heightChange);
                 mResizeAnimator.start();
 
                 mFadeInAnimator.setAnimationView(mLayoutPassword);
@@ -113,6 +108,15 @@ public class LoginFragment extends AppFragment
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onAnimationBegin(BaseAnimator animator, View animationView) {
+        String tag = animator.getTag();
+
+        if (tag.equals(mFadeOutAnimator.getTag())) {
+            animationView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -128,14 +132,5 @@ public class LoginFragment extends AppFragment
             mFadeOutAnimator.start();
         }
 
-    }
-
-    @Override
-    public void onAnimationBegin(BaseAnimator animator, View animationView) {
-        String tag = animator.getTag();
-
-        if (tag.equals(mFadeOutAnimator.getTag())) {
-            animationView.setVisibility(View.VISIBLE);
-        }
     }
 }

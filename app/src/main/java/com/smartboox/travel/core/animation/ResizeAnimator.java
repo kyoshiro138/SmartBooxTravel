@@ -43,8 +43,10 @@ public class ResizeAnimator extends BaseAnimator implements ValueAnimator.Animat
     }
 
     public void setSizeChange(int width, int height) {
-        mChangeWidth = width;
-        mChangeHeight = height;
+        if(mAnimator!=null && !mAnimator.isRunning()) {
+            mChangeWidth = width;
+            mChangeHeight = height;
+        }
     }
 
     @Override
