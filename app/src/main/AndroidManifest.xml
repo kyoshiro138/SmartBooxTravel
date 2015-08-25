@@ -1,5 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.smartboox.travel">
+<manifest package="com.smartboox.travel"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -8,21 +8,21 @@
         android:theme="@style/AppTheme">
         <activity android:name=".appimplementation.activity.AppDrawerActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <!-- Active Android Metadata-->
         <meta-data
             android:name="AA_DB_NAME"
-            android:value="smartbooxtravel.db" />
+            android:value="smartbooxtravel.db"/>
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="1" />
+            android:value="1"/>
         <meta-data
             android:name="AA_MODELS"
-            android:value="" />
+            android:value="com.smartboox.travel.appimplementation.domain.model.User"/>
     </application>
 
 </manifest>

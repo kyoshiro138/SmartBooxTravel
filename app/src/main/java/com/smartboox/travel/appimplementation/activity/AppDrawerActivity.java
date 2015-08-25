@@ -1,8 +1,10 @@
 package com.smartboox.travel.appimplementation.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.activeandroid.ActiveAndroid;
 import com.smartboox.travel.R;
 import com.smartboox.travel.app.intro.IntroFragment;
 import com.smartboox.travel.app.menu.MenuFragment;
@@ -61,6 +63,12 @@ public class AppDrawerActivity extends BaseDrawerActivity
             mToolbar = new AppToolbarViewHolder(this, toolbarView);
         }
         return mToolbar;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActiveAndroid.initialize(this);
     }
 
     @Override
