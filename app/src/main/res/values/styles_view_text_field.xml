@@ -3,14 +3,14 @@
 
     <style name="stl_text_field_layout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingRight">4dp</item>
     </style>
 
     <style name="stl_text_field_input_light">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:inputType">text</item>
         <item name="android:textColor">@color/c_text_field_input_color_light</item>
         <item name="android:textColorHint">@color/c_text_black_26</item>
@@ -21,9 +21,21 @@
     <style name="stl_text_field_divider_light">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
-        <item name="android:background">@drawable/bg_divider_light</item>
         <item name="android:layerType">software</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
+        <item name="android:background">@drawable/bg_divider_light</item>
+    </style>
+
+    <style name="stl_text_field_helper_light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:textColor">@color/c_text_black_26</item>
+    </style>
+
+    <style name="stl_text_field_error">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:textColor">@color/c_text_error</item>
     </style>
 </resources>

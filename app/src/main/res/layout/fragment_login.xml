@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/c_primary_color500">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/c_primary_color500">
 
     <LinearLayout
         android:id="@+id/layout_login"
@@ -23,13 +24,13 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:contentDescription="@null"
-            android:src="@drawable/img_default_avatar" />
+            android:src="@drawable/img_default_avatar"/>
 
         <RelativeLayout
             android:id="@+id/layout_login_username"
             android:layout_width="@dimen/d_login_layout_width"
             android:layout_height="@dimen/d_login_layout_username_height"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="16dp">
 
             <Button
                 android:id="@+id/btn_login_next"
@@ -39,13 +40,14 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/c_primary_color500"
                 android:text="@string/s_btn_next"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"/>
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField
                 android:id="@+id/tf_login_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/btn_login_next" />
+                android:layout_above="@id/btn_login_next"
+                app:error_enabled="true"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -61,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@color/c_text_black_87" />
+                android:textColor="@color/c_text_black_87"/>
 
             <Button
                 android:id="@+id/btn_login_sign_in"
@@ -71,13 +73,14 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/c_primary_color500"
                 android:text="@string/s_btn_sign_in"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"/>
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField
                 android:id="@+id/tf_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/btn_login_sign_in" />
+                android:layout_above="@id/btn_login_sign_in"
+                app:error_enabled="true"/>
         </RelativeLayout>
 
     </LinearLayout>

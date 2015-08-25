@@ -1,17 +1,29 @@
 package com.smartboox.travel.core.view.textfield;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.smartboox.travel.R;
 import com.smartboox.travel.core.view.base.BaseRelativeLayout;
+import com.smartboox.travel.utils.FontUtil;
 
 public class SingleLineTextField extends BaseRelativeLayout implements View.OnFocusChangeListener {
+    private static final String FONT_PATH = "fonts/roboto_regular.ttf";
+    private static final float INPUT_FONT_SIZE = 16f;
+    private static final float SUB_FONT_SIZE = 12f; // Error and helper font size
+
     private EditText mEdtInput;
     private View mDivider;
+    private TextView mTvError;
+    private TextView mTvHelper;
+    private boolean mErrorEnabled = false;
+    private boolean mHelperEnabled = false;
 
     @Override
     protected int getLayoutResource() {
@@ -24,10 +36,12 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
 
     public SingleLineTextField(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initAttributes(context, attrs);
     }
 
     public SingleLineTextField(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initAttributes(context, attrs);
     }
 
     @Override
@@ -36,8 +50,38 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
 
         mEdtInput = (EditText) findViewById(R.id.text_field_input);
         mDivider = findViewById(R.id.text_field_divider);
+        mTvError = (TextView) findViewById(R.id.text_field_error);
+        mTvHelper = (TextView) findViewById(R.id.text_field_helper);
 
         mEdtInput.setOnFocusChangeListener(this);
+
+        mEdtInput.setTypeface(FontUtil.loadFont(context, FONT_PATH));
+        mTvError.setTypeface(FontUtil.loadFont(context, FONT_PATH));
+        mTvHelper.setTypeface(FontUtil.loadFont(context, FONT_PATH));
+
+        mEdtInput.setTextSize(TypedValue.COMPLEX_UNIT_SP, INPUT_FONT_SIZE);
+        mTvError.setTextSize(TypedValue.COMPLEX_UNIT_SP, SUB_FONT_SIZE);
+        mTvHelper.setTextSize(TypedValue.COMPLEX_UNIT_SP, SUB_FONT_SIZE);
+    }
+
+    private void initAttributes(Context context, AttributeSet attrs) {
+        TypedArray attrsArray = context.obtainStyledAttributes(attrs, R.styleable.SingleLineTextField);
+
+        String helperText = attrsArray.getString(R.styleable.SingleLineTextField_helper_text);
+        boolean errorEnabled = attrsArray.getBoolean(R.styleable.SingleLineTextField_error_enabled, false);
+
+        attrsArray.recycle();
+
+        if (helperText != null) {
+            mTvHelper.setVisibility(VISIBLE);
+            mTvHelper.setText(helperText);
+            mHelperEnabled = true;
+        }
+
+        if (errorEnabled) {
+            mTvError.setVisibility(INVISIBLE);
+            mErrorEnabled = true;
+        }
     }
 
     @Override
@@ -75,5 +119,30 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
 
     public void setHint(int resId) {
         mEdtInput.setHint(resId);
+    }
+
+    public void showError(int errorId) {
+        String error = getResources().getString(errorId);
+        showError(error);
+    }
+
+    public void showError(String error) {
+        if (mErrorEnabled && error != null && !error.equals("")) {
+            if (mHelperEnabled) {
+                mTvHelper.setVisibility(INVISIBLE);
+            }
+            mTvError.setText(error);
+        } else {
+            hideError();
+        }
+    }
+
+    public void hideError() {
+        if (mHelperEnabled) {
+            mTvHelper.setVisibility(VISIBLE);
+        }
+
+        mTvError.setText("");
+        mTvError.setVisibility(INVISIBLE);
     }
 }

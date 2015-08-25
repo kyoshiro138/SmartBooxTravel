@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/stl_text_field_layout">
+<RelativeLayout
+    style="@style/stl_text_field_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditText
         android:id="@+id/text_field_input"
-        style="@style/stl_text_field_input_light" />
+        style="@style/stl_text_field_input_light"/>
 
     <View
         android:id="@+id/text_field_divider"
         style="@style/stl_text_field_divider_light"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp" />
+        android:layout_alignBottom="@id/text_field_input"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/text_field_helper"
+        style="@style/stl_text_field_helper_light"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/text_field_error"
+        style="@style/stl_text_field_error"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"/>
 </RelativeLayout>
