@@ -18,17 +18,14 @@ public abstract class AppFragment extends BaseFragment
     }
 
     protected final Navigable getNavigator() {
-        if (mActivity != null) {
-            return mActivity.getNavigator();
-        }
-        return null;
+        return mActivity.getNavigator();
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if(activity instanceof AppDrawerActivity) {
+        if (activity instanceof AppDrawerActivity) {
             mActivity = (AppDrawerActivity) activity;
         } else {
             throw new ClassCastException();

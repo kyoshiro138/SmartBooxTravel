@@ -20,13 +20,10 @@ public class IntroManager {
         return (boolean) mPreference.getValue(AppConstant.PREFERENCE_SIGNED_IN, false, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
     }
 
-    public User getLocalUser(String username) {
+    public User getLocalUser() {
         List<User> userList = ActiveAndroidDatabaseHelper.getList(User.class);
         if (userList != null && userList.size() > 0) {
-            for (User user : userList) {
-                if (user.getUsername().equals(username))
-                    return user;
-            }
+            return userList.get(0);
         }
         return null;
     }

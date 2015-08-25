@@ -3,6 +3,8 @@ package com.smartboox.travel.core.view.textfield;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -13,7 +15,7 @@ import com.smartboox.travel.R;
 import com.smartboox.travel.core.view.base.BaseRelativeLayout;
 import com.smartboox.travel.utils.FontUtil;
 
-public class SingleLineTextField extends BaseRelativeLayout implements View.OnFocusChangeListener {
+public class SingleLineTextField extends BaseRelativeLayout implements View.OnFocusChangeListener, TextWatcher {
     private static final String FONT_PATH = "fonts/roboto_regular.ttf";
     private static final float INPUT_FONT_SIZE = 16f;
     private static final float SUB_FONT_SIZE = 12f; // Error and helper font size
@@ -24,6 +26,8 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
     private TextView mTvHelper;
     private boolean mErrorEnabled = false;
     private boolean mHelperEnabled = false;
+
+    private OnTextChangedListener mTextChangedListener;
 
     @Override
     protected int getLayoutResource() {
@@ -54,6 +58,7 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
         mTvHelper = (TextView) findViewById(R.id.text_field_helper);
 
         mEdtInput.setOnFocusChangeListener(this);
+        mEdtInput.addTextChangedListener(this);
 
         mEdtInput.setTypeface(FontUtil.loadFont(context, FONT_PATH));
         mTvError.setTypeface(FontUtil.loadFont(context, FONT_PATH));
@@ -84,21 +89,6 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
         }
     }
 
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (mEdtInput.getId() == v.getId()) {
-            if (mEdtInput.isEnabled()) {
-                if (hasFocus) {
-                    mDivider.setBackgroundResource(R.drawable.bg_text_field_divider_focused_light);
-                } else {
-                    mDivider.setBackgroundResource(R.drawable.bg_divider_light);
-                }
-            } else {
-                mDivider.setBackgroundResource(R.drawable.bg_text_field_divider_disabled_light);
-            }
-        }
-
-    }
 
     @Override
     public void setEnabled(boolean enabled) {
@@ -144,5 +134,45 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
 
         mTvError.setText("");
         mTvError.setVisibility(INVISIBLE);
+    }
+
+    public void setOnTextChangedListener(OnTextChangedListener listener) {
+        mTextChangedListener = listener;
+    }
+
+    public Editable getText() {
+        return mEdtInput.getText();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (mEdtInput.getId() == v.getId()) {
+            if (mEdtInput.isEnabled()) {
+                if (hasFocus) {
+                    mDivider.setBackgroundResource(R.drawable.bg_text_field_divider_focused_light);
+                } else {
+                    mDivider.setBackgroundResource(R.drawable.bg_divider_light);
+                }
+            } else {
+                mDivider.setBackgroundResource(R.drawable.bg_text_field_divider_disabled_light);
+            }
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (mTextChangedListener != null) {
+            mTextChangedListener.onTextChanged(this);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }
