@@ -58,6 +58,7 @@ public class LoginFragment extends AppFragment
 
         rootView.findViewById(R.id.btn_login_next).setOnClickListener(this);
         rootView.findViewById(R.id.btn_login_sign_in).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_login_back).setOnClickListener(this);
     }
 
     @Override
@@ -108,6 +109,7 @@ public class LoginFragment extends AppFragment
                     if (user != null) {
                         logDebug("USER");
                         mTextViewUsername.setText(username);
+                        mTextFieldPassword.setText("");
                         showPasswordLayout();
                     } else {
                         // TODO: Show dialog
@@ -133,6 +135,9 @@ public class LoginFragment extends AppFragment
                 } else {
                     mTextFieldPassword.showError("Password can not be empty");
                 }
+                break;
+            case R.id.btn_login_back:
+                showUsernameLayout();
                 break;
             default:
                 break;

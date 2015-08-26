@@ -111,6 +111,14 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
         mEdtInput.setHint(resId);
     }
 
+    public void setText(int resId) {
+        mEdtInput.setText(resId);
+    }
+
+    public void setText(CharSequence text) {
+        mEdtInput.setText(text);
+    }
+
     public void showError(int errorId) {
         String error = getResources().getString(errorId);
         showError(error);

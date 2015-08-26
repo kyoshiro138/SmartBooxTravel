@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/c_primary_color500">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_primary_color500">
 
     <LinearLayout
         android:id="@+id/layout_login"
@@ -23,7 +23,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:contentDescription="@null"
-            android:src="@drawable/img_default_avatar"/>
+            android:src="@drawable/img_default_avatar" />
 
         <RelativeLayout
             android:id="@+id/layout_login_username"
@@ -34,20 +34,18 @@
 
             <com.smartboox.travel.core.view.button.MaterialButton
                 android:id="@+id/btn_login_next"
-                style="@style/stl_material_button"
+                style="@style/stl_material_button_raised_primary"
                 android:layout_width="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_material_button_raised_primary"
-                android:text="@string/s_btn_next"
-                android:textColor="@color/c_text_material_button_raised_primary"/>
+                android:text="@string/s_btn_next" />
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField
                 android:id="@+id/tf_login_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/btn_login_next"
-                app:error_enabled="true"/>
+                app:error_enabled="true" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -63,37 +61,30 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@color/c_text_black_87"/>
+                android:textColor="@color/c_text_black_87" />
 
             <com.smartboox.travel.core.view.button.MaterialButton
                 android:id="@+id/btn_login_sign_in"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                style="@style/stl_material_button_raised_primary"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
-                android:background="@color/c_primary_color500"
-                android:text="@string/s_btn_sign_in"
-                android:textColor="@android:color/white"/>
+                android:text="@string/s_btn_sign_in" />
 
             <com.smartboox.travel.core.view.button.MaterialButton
                 android:id="@+id/btn_login_back"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                style="@style/stl_material_button_raised_primary"
                 android:layout_alignParentBottom="true"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_toLeftOf="@id/btn_login_sign_in"
-                android:background="@color/c_primary_color500"
-                android:text="@string/s_btn_back"
-                android:textColor="@android:color/white"/>
+                android:text="@string/s_btn_back" />
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField
                 android:id="@+id/tf_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/btn_login_sign_in"
-                app:error_enabled="true"/>
+                app:error_enabled="true" />
         </RelativeLayout>
 
     </LinearLayout>
