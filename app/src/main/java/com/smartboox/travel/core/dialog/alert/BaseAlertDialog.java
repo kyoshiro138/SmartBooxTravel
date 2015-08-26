@@ -4,8 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.jp.androidcore.core.dialog.Dialog;
-import com.jp.androidcore.core.dialog.OnDialogButtonClickListener;
+import com.smartboox.travel.core.dialog.Dialog;
+import com.smartboox.travel.core.dialog.OnDialogButtonClickListener;
 
 public abstract class BaseAlertDialog extends AlertDialog
         implements DialogInterface.OnClickListener, Dialog {

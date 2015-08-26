@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.jp.androidcore.core.dialog.Dialog;
+import com.smartboox.travel.core.dialog.Dialog;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

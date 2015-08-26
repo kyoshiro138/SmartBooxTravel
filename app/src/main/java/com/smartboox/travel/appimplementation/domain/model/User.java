@@ -17,7 +17,12 @@ public class User extends Model {
     @Column(name = KEY_USER_TYPE)
     private int mUserType;
 
+    public User() {
+        super();
+    }
+
     public User(int userId, String username, int userType) {
+        super();
         mUserId = mUserId;
         mUsername = username;
         mUserType = userType;

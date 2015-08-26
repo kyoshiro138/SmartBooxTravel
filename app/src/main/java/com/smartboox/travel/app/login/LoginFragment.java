@@ -8,7 +8,7 @@ import com.smartboox.travel.R;
 import com.smartboox.travel.app.home.HomeFragment;
 import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
-import com.smartboox.travel.appimplementation.manager.LoginManager;
+import com.smartboox.travel.appimplementation.manager.UserManager;
 import com.smartboox.travel.core.animation.BaseAnimator;
 import com.smartboox.travel.core.animation.FadeInAnimator;
 import com.smartboox.travel.core.animation.FadeOutAnimator;
@@ -35,7 +35,7 @@ public class LoginFragment extends AppFragment
     private FadeOutAnimator mAvatarFadeOutAnimator;
     private ResizeAnimator mResizeAnimator;
 
-    private LoginManager mManager;
+    private UserManager mManager;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -65,7 +65,7 @@ public class LoginFragment extends AppFragment
         mTextFieldUsername.setHint(R.string.s_screen_login_username);
         mTextFieldPassword.setHint(R.string.s_screen_login_password);
 
-        mManager = new LoginManager(getActivity());
+        mManager = new UserManager(getActivity());
     }
 
     @Override
@@ -117,7 +117,6 @@ public class LoginFragment extends AppFragment
                 }
                 break;
             case R.id.btn_login_sign_in:
-                showUsernameLayout();
                 String password = mTextFieldPassword.getText().toString();
                 if (!password.equals("")) {
                     // TODO: Call authenticate service
@@ -127,6 +126,7 @@ public class LoginFragment extends AppFragment
                         getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
                     } else {
                         // TODO: Show wrong password dialog
+                        showUsernameLayout();
                     }
                 } else {
                     mTextFieldPassword.showError("Password can not be empty");

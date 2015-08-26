@@ -87,4 +87,12 @@ public class ApplicationPreference {
         Log.d(mContext.getPackageName(), logMessage);
         return value;
     }
+
+    public void remove(String key) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+
+        editor = editor.remove(key);
+
+        editor.apply();
+    }
 }

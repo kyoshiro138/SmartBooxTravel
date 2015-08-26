@@ -7,12 +7,12 @@ import com.smartboox.travel.app.home.HomeFragment;
 import com.smartboox.travel.app.login.LoginFragment;
 import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
-import com.smartboox.travel.appimplementation.manager.IntroManager;
+import com.smartboox.travel.appimplementation.manager.UserManager;
 
 public class IntroFragment extends AppFragment {
     private static final int INTRO_TIME_MILLISECONDS = 3 * 1000;
 
-    private IntroManager mManager;
+    private UserManager mManager;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -26,7 +26,7 @@ public class IntroFragment extends AppFragment {
 
     @Override
     protected void loadData() {
-        mManager = new IntroManager(getActivity());
+        mManager = new UserManager(getActivity());
     }
 
     @Override

@@ -121,6 +121,9 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
             if (mHelperEnabled) {
                 mTvHelper.setVisibility(INVISIBLE);
             }
+
+            mDivider.setBackgroundResource(R.drawable.bg_text_field_divider_error_light);
+            mTvError.setVisibility(VISIBLE);
             mTvError.setText(error);
         } else {
             hideError();
@@ -134,6 +137,16 @@ public class SingleLineTextField extends BaseRelativeLayout implements View.OnFo
 
         mTvError.setText("");
         mTvError.setVisibility(INVISIBLE);
+
+        if (mEdtInput.isEnabled()) {
+            if (mEdtInput.hasFocus()) {
+                mDivider.setBackgroundResource(R.drawable.bg_text_field_divider_focused_light);
+            } else {
+                mDivider.setBackgroundResource(R.drawable.bg_divider_light);
+            }
+        } else {
+            mDivider.setBackgroundResource(R.drawable.bg_text_field_divider_disabled_light);
+        }
     }
 
     public void setOnTextChangedListener(OnTextChangedListener listener) {
