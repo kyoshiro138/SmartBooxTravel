@@ -39,4 +39,9 @@ public class User extends Model {
     public int getUserType() {
         return mUserType;
     }
+
+    @Override
+    public String toString() {
+        return String.format("USER: [ID:%d][USERNAME:%s][TYPE:%d]", getUserId(), getUsername(), getUserType());
+    }
 }

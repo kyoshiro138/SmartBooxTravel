@@ -11,6 +11,7 @@ import com.smartboox.travel.utils.FontUtil;
 public class MaterialButton extends Button {
     private static final String FONT_PATH = "fonts/roboto_medium.ttf";
     private static final float FONT_SIZE = 14f;
+    private static final int MIN_WIDTH = 88;
 
     public MaterialButton(Context context) {
         super(context);
@@ -33,5 +34,6 @@ public class MaterialButton extends Button {
 
         setAllCaps(true);
         setTextSize(TypedValue.COMPLEX_UNIT_SP, FONT_SIZE);
+        setMinimumWidth(MIN_WIDTH);
     }
 }

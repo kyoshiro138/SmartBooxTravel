@@ -34,18 +34,27 @@ public class IntroFragment extends AppFragment {
         super.onStart();
 
         User user = mManager.getLocalUser();
-        if (mManager.isSignedIn() && user != null) {
+        boolean isSignedIn = mManager.isSignedIn();
+        boolean haveUser = user != null;
+
+        if (isSignedIn && haveUser) {
+            logDebug(user.toString());
             if (user.getUserType() > 0) {
                 // TODO: Call get user profile service
                 user = mManager.getUserProfile(user.getUserId());
                 if (user != null) {
+                    logDebug("SIGN IN AS USER");
                     navigateToHomeScreen();
+                } else {
+                    logDebug("GET USER PROFILE FAILED");
+                    navigateToLoginScreen();
                 }
             } else {
-                // Guest user
+                logDebug("SIGN IN AS GUEST");
                 navigateToHomeScreen();
             }
         } else {
+            logDebug(String.format("[SIGNED_IN:%s][USER:%s]", isSignedIn, haveUser));
             navigateToLoginScreen();
         }
     }

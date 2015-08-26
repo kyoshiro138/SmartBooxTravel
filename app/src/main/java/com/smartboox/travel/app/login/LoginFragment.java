@@ -106,11 +106,12 @@ public class LoginFragment extends AppFragment
                     // TODO: Call get user basic info service
                     User user = mManager.getUserBasicInfo(username);
                     if (user != null) {
+                        logDebug("USER");
                         mTextViewUsername.setText(username);
                         showPasswordLayout();
                     } else {
                         // TODO: Show dialog
-
+                        logDebug("USERNAME NOT EXISTED");
                     }
                 } else {
                     mTextFieldUsername.showError("Username can not be empty");
@@ -126,6 +127,7 @@ public class LoginFragment extends AppFragment
                         getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
                     } else {
                         // TODO: Show wrong password dialog
+                        logDebug("WRONG PASSWORD");
                         showUsernameLayout();
                     }
                 } else {

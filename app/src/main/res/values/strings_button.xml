@@ -2,4 +2,5 @@
 <resources>
     <string name="s_btn_sign_in">SIGN IN</string>
     <string name="s_btn_next">NEXT</string>
+    <string name="s_btn_back">BACK</string>
 </resources>

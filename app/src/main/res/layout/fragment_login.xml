@@ -13,7 +13,6 @@
         android:background="@drawable/bg_card"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:paddingBottom="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
 
@@ -30,17 +29,18 @@
             android:id="@+id/layout_login_username"
             android:layout_width="@dimen/d_login_layout_width"
             android:layout_height="@dimen/d_login_layout_username_height"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:visibility="visible">
 
-            <Button
+            <com.smartboox.travel.core.view.button.MaterialButton
                 android:id="@+id/btn_login_next"
+                style="@style/stl_material_button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="8dp"
-                android:background="@color/c_primary_color500"
+                android:background="@drawable/bg_material_button_raised_primary"
                 android:text="@string/s_btn_next"
-                android:textColor="@android:color/white"/>
+                android:textColor="@color/c_text_material_button_raised_primary"/>
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField
                 android:id="@+id/tf_login_username"
@@ -65,14 +65,27 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/c_text_black_87"/>
 
-            <Button
+            <com.smartboox.travel.core.view.button.MaterialButton
                 android:id="@+id/btn_login_sign_in"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
                 android:background="@color/c_primary_color500"
                 android:text="@string/s_btn_sign_in"
+                android:textColor="@android:color/white"/>
+
+            <com.smartboox.travel.core.view.button.MaterialButton
+                android:id="@+id/btn_login_back"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@id/btn_login_sign_in"
+                android:background="@color/c_primary_color500"
+                android:text="@string/s_btn_back"
                 android:textColor="@android:color/white"/>
 
             <com.smartboox.travel.core.view.textfield.SingleLineTextField

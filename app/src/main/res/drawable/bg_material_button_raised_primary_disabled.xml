@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+       android:insetTop="@dimen/d_material_button_inset"
+       android:insetBottom="@dimen/d_material_button_inset">
+    <layer-list>
+        <item>
+            <shape android:shape="rectangle">
+                <corners android:radius="@dimen/d_material_button_corner_radius"/>
+                <solid android:color="@color/c_material_button_raised_primary_disabled" />
+            </shape>
+        </item>
+    </layer-list>
+</inset>
