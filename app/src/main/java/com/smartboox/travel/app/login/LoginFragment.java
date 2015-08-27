@@ -4,11 +4,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.smartboox.travel.R;
 import com.smartboox.travel.app.home.HomeFragment;
 import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.UserManager;
+import com.smartboox.travel.appimplementation.service.AppResponseObject;
 import com.smartboox.travel.core.animation.BaseAnimator;
 import com.smartboox.travel.core.animation.FadeInAnimator;
 import com.smartboox.travel.core.animation.FadeOutAnimator;
@@ -16,11 +18,15 @@ import com.smartboox.travel.core.animation.OnAnimationBeginListener;
 import com.smartboox.travel.core.animation.OnAnimationFinishedListener;
 import com.smartboox.travel.core.animation.ResizeAnimator;
 import com.smartboox.travel.core.animation.ZoomOutAnimator;
+import com.smartboox.travel.core.service.client.OnServiceResponseListener;
 import com.smartboox.travel.core.view.textfield.OnTextChangedListener;
 import com.smartboox.travel.core.view.textfield.SingleLineTextField;
 
 public class LoginFragment extends AppFragment
-        implements View.OnClickListener, OnAnimationFinishedListener, OnAnimationBeginListener, OnTextChangedListener {
+        implements View.OnClickListener,
+        OnAnimationFinishedListener,
+        OnAnimationBeginListener,
+        OnTextChangedListener, OnServiceResponseListener<AppResponseObject> {
     private SingleLineTextField mTextFieldUsername;
     private SingleLineTextField mTextFieldPassword;
     private View mLayoutLogin;
@@ -105,16 +111,17 @@ public class LoginFragment extends AppFragment
                 String username = mTextFieldUsername.getText().toString();
                 if (!username.equals("")) {
                     // TODO: Call get user basic info service
-                    User user = mManager.getUserBasicInfo(username);
-                    if (user != null) {
-                        logDebug("USER");
-                        mTextViewUsername.setText(username);
-                        mTextFieldPassword.setText("");
-                        showPasswordLayout();
-                    } else {
-                        // TODO: Show dialog
-                        logDebug("USERNAME NOT EXISTED");
-                    }
+//                    User user = mManager.getUserBasicInfo(username);
+//                    if (user != null) {
+//                        logDebug("USER");
+//                        mTextViewUsername.setText(username);
+//                        mTextFieldPassword.setText("");
+//                        showPasswordLayout();
+//                    } else {
+//                        // TODO: Show dialog
+//                        logDebug("USERNAME NOT EXISTED");
+//                    }
+                    mManager.startGetBasicInfoService(username, this);
                 } else {
                     mTextFieldUsername.showError("Username can not be empty");
                 }
@@ -200,5 +207,20 @@ public class LoginFragment extends AppFragment
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onResponseSuccess(String tag, AppResponseObject response) {
+        showToast(tag);
+    }
+
+    @Override
+    public void onResponseFailed(String tag, VolleyError error) {
+
+    }
+
+    @Override
+    public void onParseError(String tag, String response) {
+
     }
 }

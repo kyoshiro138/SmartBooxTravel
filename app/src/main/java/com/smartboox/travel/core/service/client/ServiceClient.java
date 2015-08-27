@@ -5,15 +5,16 @@ import android.content.Context;
 import com.android.volley.Response;
 import com.smartboox.travel.core.service.request.BaseRequest;
 import com.smartboox.travel.core.service.request.ServiceRequest;
+import com.smartboox.travel.core.service.response.BaseResponse;
 import com.smartboox.travel.core.service.response.ServiceResponse;
 
-public class ServiceClient extends BaseServiceClient<ServiceResponse> {
-    public ServiceClient(Context context, String tag, String url, OnServiceResponseListener<ServiceResponse> listener) {
-        super(context, tag, url, listener);
+public class ServiceClient extends BaseServiceClient {
+    public ServiceClient(Context context, String tag, String url) {
+        super(context, tag, url);
     }
 
     @Override
-    protected ServiceResponse createResponse(String responseString) {
+    protected BaseResponse createResponse(String responseString) {
         return new ServiceResponse(responseString);
     }
 

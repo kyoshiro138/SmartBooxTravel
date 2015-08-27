@@ -12,19 +12,20 @@ import com.smartboox.travel.core.service.request.BaseRequest;
 import com.smartboox.travel.core.service.request.RequestParam;
 import com.smartboox.travel.core.service.response.BaseResponse;
 
-public abstract class BaseServiceClient<T extends BaseResponse> implements Response.ErrorListener, Response.Listener<String> {
+import java.io.IOException;
+
+public abstract class BaseServiceClient implements Response.ErrorListener, Response.Listener<String> {
     protected Context mContext;
     protected RequestQueue mRequestQueue;
     protected String mUrl;
     protected String mTag;
-    private OnServiceResponseListener<T> mListener;
+    private OnServiceResponseListener<String> mListener;
 
-    public BaseServiceClient(Context context, String tag, String url, OnServiceResponseListener<T> listener) {
+    public BaseServiceClient(Context context, String tag, String url) {
         mContext = context;
         mRequestQueue = Volley.newRequestQueue(context);
         mTag = tag;
         mUrl = url;
-        mListener = listener;
     }
 
     public void executeGet() {
@@ -50,6 +51,10 @@ public abstract class BaseServiceClient<T extends BaseResponse> implements Respo
         mRequestQueue.start();
     }
 
+    public void setServiceResponseListener(OnServiceResponseListener<String> listener) {
+        mListener = listener;
+    }
+
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.d(mContext.getPackageName(), String.format("[%s RESPONSE ERROR]", mTag));
@@ -61,12 +66,17 @@ public abstract class BaseServiceClient<T extends BaseResponse> implements Respo
     @Override
     public void onResponse(String responseString) {
         Log.d(mContext.getPackageName(), String.format("[%s RESPONSE: %s]", mTag, responseString));
-        if (mListener != null) {
-            mListener.onResponseSuccess(mTag, createResponse(responseString));
+        try {
+            if (mListener != null) {
+                BaseResponse response = createResponse(responseString);
+                mListener.onResponseSuccess(mTag, response.getResponseString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    protected abstract T createResponse(String responseString);
+    protected abstract BaseResponse createResponse(String responseString) throws IOException;
 
     protected abstract BaseRequest createRequest(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener);
 }

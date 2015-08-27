@@ -3,23 +3,32 @@ package com.smartboox.travel.appimplementation.manager;
 import android.content.Context;
 
 import com.smartboox.travel.appimplementation.domain.model.User;
+import com.smartboox.travel.appimplementation.service.AppResponseObject;
+import com.smartboox.travel.appimplementation.service.AppRestClient;
+import com.smartboox.travel.appimplementation.service.ServiceConstant;
 import com.smartboox.travel.core.database.ActiveAndroidDatabaseHelper;
+import com.smartboox.travel.core.service.client.OnServiceResponseListener;
 import com.smartboox.travel.utils.ApplicationPreference;
 
 import java.util.List;
 
 public class UserManager {
-    //    TEST CONSTANTS
+    // TEST CONSTANTS
     public static final String TEST_USERNAME = "user";
     public static final String TEST_PASSWORD = "pass";
 
-    //    PREFERENCE KEYS
+    // PREFERENCE KEYS
     public static final String PREFERENCE_SIGNED_IN = "PREFERENCE_SIGNED_IN";
     public static final String PREFERENCE_AUTH_KEY = "PREFERENCE_AUTH_KEY";
 
+    // SERVICE KEYS
+    public static final String SERVICE_GET_BASIC_INFO = "SERVICE_GET_BASIC_INFO";
+
+    private Context mContext;
     private ApplicationPreference mPreference;
 
     public UserManager(Context context) {
+        mContext = context;
         mPreference = new ApplicationPreference(context);
     }
 
@@ -45,10 +54,21 @@ public class UserManager {
     }
 
     public User getUserBasicInfo(String username) {
+
         if (username.equals(TEST_USERNAME)) {
             return new User(1, TEST_USERNAME, 1);
         }
         return null;
+    }
+
+    public void startGetBasicInfoService(String username, OnServiceResponseListener<AppResponseObject> listener) {
+        String url = String.format("%s?username=%s", ServiceConstant.URL_GET_BASIC_INFO, username);
+
+//        ServiceClient serviceClient = new ServiceClient(mContext, SERVICE_GET_BASIC_INFO, url);
+//        serviceClient.setServiceResponseListener(listener);
+//        serviceClient.executeGet();
+        AppRestClient restClient = new AppRestClient(mContext, SERVICE_GET_BASIC_INFO, url, listener);
+        restClient.executeGet();
     }
 
     public User createGuestUser(String username) {

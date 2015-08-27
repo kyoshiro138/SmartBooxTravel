@@ -8,14 +8,12 @@ import com.smartboox.travel.core.service.response.BaseJsonResponse;
 
 import java.io.IOException;
 
-public abstract class BaseRestClient<TResponse extends BaseJsonResponse> extends BaseServiceClient<TResponse> {
-    private OnServiceResponseListener<TResponse> mListener;
-    private Class<?> mResponseDataType;
+public abstract class BaseRestClient<TResponseObject> extends BaseServiceClient {
+    private OnServiceResponseListener<TResponseObject> mListener;
 
-    public <TData> BaseRestClient(Context context, String tag, String url, Class<TData> responseDataType, OnServiceResponseListener<TResponse> listener) {
-        super(context, tag, url, null);
+    public BaseRestClient(Context context, String tag, String url, OnServiceResponseListener<TResponseObject> listener) {
+        super(context, tag, url);
         mListener = listener;
-        mResponseDataType = responseDataType;
     }
 
     @Override
@@ -23,8 +21,9 @@ public abstract class BaseRestClient<TResponse extends BaseJsonResponse> extends
         try {
             Log.d(mContext.getPackageName(), String.format("[%s RESPONSE: %s]", mTag, responseString));
 
-            if (mListener != null) {
-                mListener.onResponseSuccess(mTag, createResponse(responseString, mResponseDataType));
+            BaseJsonResponse<TResponseObject> response = createResponse(responseString);
+            if (mListener != null && response != null) {
+                mListener.onResponseSuccess(mTag, response.getResponseObject());
             }
         } catch (Exception e) {
             Log.d(mContext.getPackageName(), String.format("[%s PARSE ERROR]", mTag));
@@ -41,10 +40,5 @@ public abstract class BaseRestClient<TResponse extends BaseJsonResponse> extends
         }
     }
 
-    protected abstract <TData> TResponse createResponse(String responseString, Class<TData> responseDataType) throws IOException;
-
-    @Override
-    protected final TResponse createResponse(String responseString) {
-        return null;
-    }
+    protected abstract BaseJsonResponse<TResponseObject> createResponse(String responseString) throws IOException;
 }

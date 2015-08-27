@@ -3,6 +3,7 @@ package com.smartboox.travel.appimplementation.domain.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Table(name = "user")
 public class User extends Model {
@@ -11,10 +12,13 @@ public class User extends Model {
     private static final String KEY_USER_TYPE = "KEY_USER_TYPE";
 
     @Column(name = KEY_USER_ID)
+    @JsonProperty("userId")
     private int mUserId;
     @Column(name = KEY_USERNAME)
+    @JsonProperty("username")
     private String mUsername;
     @Column(name = KEY_USER_TYPE)
+    @JsonProperty("userType")
     private int mUserType;
 
     public User() {
