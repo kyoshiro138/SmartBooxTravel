@@ -25,7 +25,8 @@ public abstract class BaseRestClient<TResponseObject> extends BaseServiceClient 
             if (mListener != null && response != null) {
                 mListener.onResponseSuccess(mTag, response.getResponseObject());
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
+            e.printStackTrace();
             Log.d(mContext.getPackageName(), String.format("[%s PARSE ERROR]", mTag));
             if (mListener != null) {
                 mListener.onParseError(mTag, responseString);

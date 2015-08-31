@@ -36,11 +36,14 @@ public class LoginFragment extends AppFragment
     private View mLayoutPassword;
     private ImageView mImgViewAvatar;
     private TextView mTextViewUsername;
+    private TextView mTextViewCreateAccount;
 
     private ZoomOutAnimator mZoomAnimator;
     private FadeInAnimator mFadeInAnimator;
     private FadeOutAnimator mFadeOutAnimator;
     private FadeOutAnimator mAvatarFadeOutAnimator;
+    private FadeOutAnimator mRegisterFadeOutAnimator;
+    private FadeInAnimator mRegisterFadeInAnimator;
     private ResizeAnimator mResizeAnimator;
 
     private UserManager mManager;
@@ -64,6 +67,7 @@ public class LoginFragment extends AppFragment
 
         mImgViewAvatar = (ImageView) rootView.findViewById(R.id.img_login_avatar);
         mTextViewUsername = (TextView) rootView.findViewById(R.id.tv_login_username);
+        mTextViewCreateAccount = (TextView) rootView.findViewById(R.id.tv_login_create_account);
         mTextFieldUsername = (SingleLineTextField) rootView.findViewById(R.id.tf_login_username);
         mTextFieldPassword = (SingleLineTextField) rootView.findViewById(R.id.tf_login_password);
 
@@ -73,6 +77,7 @@ public class LoginFragment extends AppFragment
         rootView.findViewById(R.id.btn_login_next).setOnClickListener(this);
         rootView.findViewById(R.id.btn_login_sign_in).setOnClickListener(this);
         rootView.findViewById(R.id.btn_login_back).setOnClickListener(this);
+        mTextViewCreateAccount.setOnClickListener(this);
     }
 
     @Override
@@ -105,6 +110,13 @@ public class LoginFragment extends AppFragment
             mAvatarFadeOutAnimator = new FadeOutAnimator("AVATAR_FADE_OUT");
             mAvatarFadeOutAnimator.setAnimationView(mImgViewAvatar);
         }
+        if (mRegisterFadeOutAnimator == null) {
+            mRegisterFadeOutAnimator = new FadeOutAnimator("REGISTER_FADE_OUT");
+            mRegisterFadeOutAnimator.setAnimationView(mTextViewCreateAccount);
+        }
+        if (mRegisterFadeInAnimator == null) {
+            mRegisterFadeInAnimator = new FadeInAnimator("REGISTER_FADE_IN");
+        }
         if (mResizeAnimator == null) {
             mResizeAnimator = new ResizeAnimator();
         }
@@ -135,6 +147,8 @@ public class LoginFragment extends AppFragment
             case R.id.btn_login_back:
                 showUsernameLayout();
                 break;
+            case R.id.tv_login_create_account:
+                break;
             default:
                 break;
         }
@@ -148,7 +162,9 @@ public class LoginFragment extends AppFragment
 
         mFadeInAnimator.setAnimationView(mLayoutPassword);
         mFadeOutAnimator.setAnimationView(mLayoutUsername);
+        mRegisterFadeOutAnimator.setAnimationView(mTextViewCreateAccount);
         mFadeInAnimator.start();
+        mRegisterFadeOutAnimator.start();
     }
 
     private void showPasswordLayout() {
@@ -157,9 +173,11 @@ public class LoginFragment extends AppFragment
         mResizeAnimator.setSizeChange(0, heightChange);
         mResizeAnimator.start();
 
-        mFadeInAnimator.setAnimationView(mLayoutUsername);
         mFadeOutAnimator.setAnimationView(mLayoutPassword);
+        mFadeInAnimator.setAnimationView(mLayoutUsername);
+        mRegisterFadeInAnimator.setAnimationView(mTextViewCreateAccount);
         mFadeInAnimator.start();
+        mRegisterFadeInAnimator.start();
     }
 
     @Override
@@ -178,6 +196,7 @@ public class LoginFragment extends AppFragment
         if (tag.equals(mZoomAnimator.getTag())) {
             mFadeOutAnimator.start();
             mAvatarFadeOutAnimator.start();
+            mRegisterFadeOutAnimator.start();
         } else if (tag.equals(mFadeInAnimator.getTag())) {
             animationView.setVisibility(View.GONE);
             mFadeOutAnimator.start();
