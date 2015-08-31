@@ -63,11 +63,12 @@ public class UserManager {
     }
 
     public void startGetBasicInfoService(String username, OnServiceResponseListener<AppResponseObject> listener) {
+        if (!username.equals("user")) {
+            username = "guest";
+        }
+
         String url = String.format("%s?username=%s", ServiceConstant.URL_GET_BASIC_INFO, username);
 
-//        ServiceClient serviceClient = new ServiceClient(mContext, SERVICE_GET_BASIC_INFO, url);
-//        serviceClient.setServiceResponseListener(listener);
-//        serviceClient.executeGet();
         AppRestClient<GetBasicInfoResponseObject> restClient = new AppRestClient<>(mContext, SERVICE_GET_BASIC_INFO, url, GetBasicInfoResponseObject.class, listener);
         restClient.executeGet();
     }

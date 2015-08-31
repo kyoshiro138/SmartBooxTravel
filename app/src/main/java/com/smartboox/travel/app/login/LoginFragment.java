@@ -214,7 +214,14 @@ public class LoginFragment extends AppFragment
     public void onResponseSuccess(String tag, AppResponseObject response) {
         if (tag.equals(UserManager.SERVICE_GET_BASIC_INFO)) {
             GetBasicInfoResponseObject responseObject = (GetBasicInfoResponseObject) response;
-            showToast(responseObject.getResponseData().getUser().getUsername());
+            boolean isSuccess = responseObject.getStatus();
+            if (isSuccess) {
+                showToast(responseObject.getResponseData().getUser().getUsername());
+            } else {
+                int errorCode = responseObject.getResponseCode();
+                String message = response.getMessage();
+                showToast(String.format("Error %d: %s", errorCode, message));
+            }
         }
     }
 
