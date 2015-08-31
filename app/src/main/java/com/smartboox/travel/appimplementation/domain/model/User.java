@@ -20,6 +20,10 @@ public class User extends Model {
     @Column(name = KEY_USER_TYPE)
     @JsonProperty("userType")
     private int mUserType;
+    @JsonProperty("firstName")
+    private String mFirstName;
+    @JsonProperty("lastName")
+    private String mLastName;
 
     public User() {
         super();
@@ -42,6 +46,14 @@ public class User extends Model {
 
     public int getUserType() {
         return mUserType;
+    }
+
+    public String getFirstName() {
+        return mFirstName;
+    }
+
+    public String getLastName() {
+        return mLastName;
     }
 
     @Override

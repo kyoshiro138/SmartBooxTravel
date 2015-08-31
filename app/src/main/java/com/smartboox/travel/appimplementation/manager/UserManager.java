@@ -6,6 +6,7 @@ import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.service.AppResponseObject;
 import com.smartboox.travel.appimplementation.service.AppRestClient;
 import com.smartboox.travel.appimplementation.service.ServiceConstant;
+import com.smartboox.travel.appimplementation.service.response.AuthenticateResponseObject;
 import com.smartboox.travel.appimplementation.service.response.GetBasicInfoResponseObject;
 import com.smartboox.travel.core.database.ActiveAndroidDatabaseHelper;
 import com.smartboox.travel.core.service.client.OnServiceResponseListener;
@@ -24,6 +25,7 @@ public class UserManager {
 
     // SERVICE KEYS
     public static final String SERVICE_GET_BASIC_INFO = "SERVICE_GET_BASIC_INFO";
+    public static final String SERVICE_AUTHENTICATION = "SERVICE_AUTHENTICATION";
 
     private Context mContext;
     private ApplicationPreference mPreference;
@@ -77,20 +79,21 @@ public class UserManager {
         return new User(0, username, 0);
     }
 
-    public User authenticate(String username, String password) {
-        boolean isSuccess = username.equals(TEST_USERNAME) && password.equals(TEST_PASSWORD);
-
-        if (isSuccess) {
-            User user = new User(1, TEST_USERNAME, 1);
-            String authKey = "key";
-
-            ActiveAndroidDatabaseHelper.saveItem(user);
-            mPreference.saveValue(PREFERENCE_SIGNED_IN, true, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
-            mPreference.saveValue(PREFERENCE_AUTH_KEY, authKey, ApplicationPreference.PREFERENCE_TYPE_STRING);
-
-            return user;
+    public void authenticate(String username, String password, OnServiceResponseListener<AppResponseObject> listener) {
+        if (!username.equals(TEST_USERNAME) || !password.equals(TEST_PASSWORD)) {
+            username = "user";
+            password = "wrong";
         }
-        return null;
+
+        String url = String.format("%s?username=%s&password=%s", ServiceConstant.URL_AUTHENTICATION, username, password);
+
+        AppRestClient<AuthenticateResponseObject> restClient = new AppRestClient<>(mContext, SERVICE_AUTHENTICATION, url, AuthenticateResponseObject.class, listener);
+        restClient.executeGet();
+    }
+
+    public void saveAuthentication(String key) {
+        mPreference.saveValue(PREFERENCE_SIGNED_IN, true, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
+        mPreference.saveValue(PREFERENCE_AUTH_KEY, key, ApplicationPreference.PREFERENCE_TYPE_STRING);
     }
 
     public void clearUser() {

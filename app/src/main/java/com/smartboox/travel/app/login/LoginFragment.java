@@ -7,10 +7,10 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.smartboox.travel.R;
 import com.smartboox.travel.app.home.HomeFragment;
-import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.UserManager;
 import com.smartboox.travel.appimplementation.service.AppResponseObject;
+import com.smartboox.travel.appimplementation.service.response.AuthenticateResponseObject;
 import com.smartboox.travel.appimplementation.service.response.GetBasicInfoResponseObject;
 import com.smartboox.travel.core.animation.BaseAnimator;
 import com.smartboox.travel.core.animation.FadeInAnimator;
@@ -111,17 +111,6 @@ public class LoginFragment extends AppFragment
             case R.id.btn_login_next:
                 String username = mTextFieldUsername.getText().toString();
                 if (!username.equals("")) {
-                    // TODO: Call get user basic info service
-//                    User user = mManager.getUserBasicInfo(username);
-//                    if (user != null) {
-//                        logDebug("USER");
-//                        mTextViewUsername.setText(username);
-//                        mTextFieldPassword.setText("");
-//                        showPasswordLayout();
-//                    } else {
-//                        // TODO: Show dialog
-//                        logDebug("USERNAME NOT EXISTED");
-//                    }
                     mManager.startGetBasicInfoService(username, this);
                 } else {
                     mTextFieldUsername.showError("Username can not be empty");
@@ -130,16 +119,8 @@ public class LoginFragment extends AppFragment
             case R.id.btn_login_sign_in:
                 String password = mTextFieldPassword.getText().toString();
                 if (!password.equals("")) {
-                    // TODO: Call authenticate service
                     username = mTextViewUsername.getText().toString();
-                    User user = mManager.authenticate(username, password);
-                    if (user != null) {
-                        getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
-                    } else {
-                        // TODO: Show wrong password dialog
-                        logDebug("WRONG PASSWORD");
-                        showUsernameLayout();
-                    }
+                    mManager.authenticate(username, password, this);
                 } else {
                     mTextFieldPassword.showError("Password can not be empty");
                 }
@@ -212,18 +193,18 @@ public class LoginFragment extends AppFragment
 
     @Override
     public void onResponseSuccess(String tag, AppResponseObject response) {
-        if (tag.equals(UserManager.SERVICE_GET_BASIC_INFO)) {
-            GetBasicInfoResponseObject responseObject = (GetBasicInfoResponseObject) response;
-            boolean isSuccess = responseObject.getStatus();
-            if (isSuccess) {
-                showToast(responseObject.getResponseData().getUser().getUsername());
-            } else {
-                int errorCode = responseObject.getResponseCode();
-                String message = response.getMessage();
-                showToast(String.format("Error %d: %s", errorCode, message));
-            }
+        switch (tag) {
+            case UserManager.SERVICE_GET_BASIC_INFO:
+                onGetBasicInfoResponse((GetBasicInfoResponseObject) response);
+                break;
+            case UserManager.SERVICE_AUTHENTICATION:
+                onAuthenticationResponse((AuthenticateResponseObject) response);
+                break;
+            default:
+                break;
         }
     }
+
 
     @Override
     public void onResponseFailed(String tag, VolleyError error) {
@@ -233,5 +214,32 @@ public class LoginFragment extends AppFragment
     @Override
     public void onParseError(String tag, String response) {
 
+    }
+
+    private void onGetBasicInfoResponse(GetBasicInfoResponseObject responseObject) {
+        boolean isSuccess = responseObject.getStatus();
+        if (isSuccess) {
+            mTextViewUsername.setText(responseObject.getResponseData().getUser().getUsername());
+            mTextFieldPassword.setText("");
+            showPasswordLayout();
+        } else {
+            // TODO: Show dialog to login as guest
+            int errorCode = responseObject.getResponseCode();
+            String message = responseObject.getMessage();
+            showToast(String.format("Error %d: %s", errorCode, message));
+        }
+    }
+
+    private void onAuthenticationResponse(AuthenticateResponseObject responseObject) {
+        boolean isSuccess = responseObject.getStatus();
+        if (isSuccess) {
+            mManager.saveAuthentication(responseObject.getResponseData().getKey());
+            getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
+        } else {
+            // TODO: Show dialog wrong password warning
+            int errorCode = responseObject.getResponseCode();
+            String message = responseObject.getMessage();
+            showToast(String.format("Error %d: %s", errorCode, message));
+        }
     }
 }
