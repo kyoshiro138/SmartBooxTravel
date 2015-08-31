@@ -8,7 +8,6 @@ import com.smartboox.travel.appimplementation.fragment.AppFragment;
 
 public class HomeFragment extends AppFragment {
 
-
     @Override
     protected int getFragmentLayoutResource() {
         return R.layout.fragment_home;

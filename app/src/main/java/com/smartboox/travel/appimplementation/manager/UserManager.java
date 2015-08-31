@@ -8,6 +8,7 @@ import com.smartboox.travel.appimplementation.service.AppRestClient;
 import com.smartboox.travel.appimplementation.service.ServiceConstant;
 import com.smartboox.travel.appimplementation.service.response.AuthenticateResponseObject;
 import com.smartboox.travel.appimplementation.service.response.GetBasicInfoResponseObject;
+import com.smartboox.travel.appimplementation.service.response.GetProfileResponseObject;
 import com.smartboox.travel.core.database.ActiveAndroidDatabaseHelper;
 import com.smartboox.travel.core.service.client.OnServiceResponseListener;
 import com.smartboox.travel.utils.ApplicationPreference;
@@ -26,6 +27,7 @@ public class UserManager {
     // SERVICE KEYS
     public static final String SERVICE_GET_BASIC_INFO = "SERVICE_GET_BASIC_INFO";
     public static final String SERVICE_AUTHENTICATION = "SERVICE_AUTHENTICATION";
+    public static final String SERVICE_GET_PROFILE = "SERVICE_GET_PROFILE";
 
     private Context mContext;
     private ApplicationPreference mPreference;
@@ -47,21 +49,22 @@ public class UserManager {
         return null;
     }
 
-    public User getUserProfile(int userId) {
+    public void startGetProfile(int userId, OnServiceResponseListener<AppResponseObject> listener) {
         String key = (String) mPreference.getValue(PREFERENCE_AUTH_KEY, "", ApplicationPreference.PREFERENCE_TYPE_STRING);
 
-        if (userId > 0 && !key.isEmpty()) {
-            return new User(1, "user", 1);
+        if (!key.equals("abc123")) {
+            key = "abc";
+            userId = 1;
         }
-        return null;
-    }
 
-    public User getUserBasicInfo(String username) {
-
-        if (username.equals(TEST_USERNAME)) {
-            return new User(1, TEST_USERNAME, 1);
+        if (userId != 1) {
+            userId = 0;
         }
-        return null;
+
+        String url = String.format("%s?key=%s&userId=%d", ServiceConstant.URL_GET_PROFILE, key, userId);
+
+        AppRestClient<GetProfileResponseObject> restClient = new AppRestClient<>(mContext, SERVICE_GET_PROFILE, url, GetProfileResponseObject.class, listener);
+        restClient.executeGet();
     }
 
     public void startGetBasicInfoService(String username, OnServiceResponseListener<AppResponseObject> listener) {
@@ -91,13 +94,18 @@ public class UserManager {
         restClient.executeGet();
     }
 
-    public void saveAuthentication(String key) {
+    public void saveSignIn(User user, String key) {
+        ActiveAndroidDatabaseHelper.saveItem(user);
+
         mPreference.saveValue(PREFERENCE_SIGNED_IN, true, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
         mPreference.saveValue(PREFERENCE_AUTH_KEY, key, ApplicationPreference.PREFERENCE_TYPE_STRING);
     }
 
-    public void clearUser() {
+    public void signOut() {
+        // clear user
         ActiveAndroidDatabaseHelper.removeAll(User.class);
+
+        // Clear authentication data
         mPreference.remove(PREFERENCE_SIGNED_IN);
         mPreference.remove(PREFERENCE_AUTH_KEY);
     }

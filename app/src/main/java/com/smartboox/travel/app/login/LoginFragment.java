@@ -1,5 +1,6 @@
 package com.smartboox.travel.app.login;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +48,12 @@ public class LoginFragment extends AppFragment
     @Override
     protected int getFragmentLayoutResource() {
         return R.layout.fragment_login;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivity.getToolbar().setToolbarVisibility(View.GONE);
     }
 
     @Override
@@ -233,7 +240,7 @@ public class LoginFragment extends AppFragment
     private void onAuthenticationResponse(AuthenticateResponseObject responseObject) {
         boolean isSuccess = responseObject.getStatus();
         if (isSuccess) {
-            mManager.saveAuthentication(responseObject.getResponseData().getKey());
+            mManager.saveSignIn(responseObject.getResponseData().getUser(), responseObject.getResponseData().getKey());
             getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
         } else {
             // TODO: Show dialog wrong password warning

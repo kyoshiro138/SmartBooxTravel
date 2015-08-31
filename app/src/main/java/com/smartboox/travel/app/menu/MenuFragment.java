@@ -43,7 +43,7 @@ public class MenuFragment extends AppFragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
-                mManager.clearUser();
+                mManager.signOut();
                 getNavigator().navigateToFirstLevelFragment(new LoginFragment(), null);
                 break;
             default:
