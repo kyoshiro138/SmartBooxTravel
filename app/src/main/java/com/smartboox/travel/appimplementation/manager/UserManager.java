@@ -6,6 +6,7 @@ import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.service.AppResponseObject;
 import com.smartboox.travel.appimplementation.service.AppRestClient;
 import com.smartboox.travel.appimplementation.service.ServiceConstant;
+import com.smartboox.travel.appimplementation.service.response.GetBasicInfoResponseObject;
 import com.smartboox.travel.core.database.ActiveAndroidDatabaseHelper;
 import com.smartboox.travel.core.service.client.OnServiceResponseListener;
 import com.smartboox.travel.utils.ApplicationPreference;
@@ -67,7 +68,7 @@ public class UserManager {
 //        ServiceClient serviceClient = new ServiceClient(mContext, SERVICE_GET_BASIC_INFO, url);
 //        serviceClient.setServiceResponseListener(listener);
 //        serviceClient.executeGet();
-        AppRestClient restClient = new AppRestClient(mContext, SERVICE_GET_BASIC_INFO, url, listener);
+        AppRestClient<GetBasicInfoResponseObject> restClient = new AppRestClient<>(mContext, SERVICE_GET_BASIC_INFO, url, GetBasicInfoResponseObject.class, listener);
         restClient.executeGet();
     }
 

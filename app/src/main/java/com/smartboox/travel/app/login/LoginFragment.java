@@ -11,6 +11,7 @@ import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.UserManager;
 import com.smartboox.travel.appimplementation.service.AppResponseObject;
+import com.smartboox.travel.appimplementation.service.response.GetBasicInfoResponseObject;
 import com.smartboox.travel.core.animation.BaseAnimator;
 import com.smartboox.travel.core.animation.FadeInAnimator;
 import com.smartboox.travel.core.animation.FadeOutAnimator;
@@ -211,7 +212,10 @@ public class LoginFragment extends AppFragment
 
     @Override
     public void onResponseSuccess(String tag, AppResponseObject response) {
-        showToast(tag);
+        if (tag.equals(UserManager.SERVICE_GET_BASIC_INFO)) {
+            GetBasicInfoResponseObject responseObject = (GetBasicInfoResponseObject) response;
+            showToast(responseObject.getResponseData().getUser().getUsername());
+        }
     }
 
     @Override

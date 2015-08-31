@@ -13,16 +13,19 @@ import com.smartboox.travel.core.service.response.ServiceJsonResponse;
 
 import java.io.IOException;
 
-public class AppRestClient extends BaseRestClient<AppResponseObject> {
-    public AppRestClient(Context context, String tag, String url, OnServiceResponseListener<AppResponseObject> listener) {
+public class AppRestClient<TResponseObject extends AppResponseObject> extends BaseRestClient<AppResponseObject> {
+    private Class<TResponseObject> mObjectClass;
+
+    public AppRestClient(Context context, String tag, String url, Class<TResponseObject> objectClass, OnServiceResponseListener<AppResponseObject> listener) {
         super(context, tag, url, listener);
+        mObjectClass = objectClass;
     }
 
     @Override
     protected BaseJsonResponse<AppResponseObject> createResponse(String responseString) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        AppResponseObject responseObject = mapper.readValue(responseString, AppResponseObject.class);
-        return new ServiceJsonResponse<>(responseString, responseObject);
+        TResponseObject responseObject = mapper.readValue(responseString, mObjectClass);
+        return new ServiceJsonResponse<AppResponseObject>(responseString, responseObject);
     }
 
     @Override
