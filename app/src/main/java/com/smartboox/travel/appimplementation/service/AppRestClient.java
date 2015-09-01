@@ -1,8 +1,10 @@
 package com.smartboox.travel.appimplementation.service;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartboox.travel.core.service.client.BaseRestClient;
 import com.smartboox.travel.core.service.client.OnServiceResponseListener;
@@ -15,6 +17,7 @@ import java.io.IOException;
 
 public class AppRestClient<TResponseObject extends AppResponseObject> extends BaseRestClient<AppResponseObject> {
     private Class<TResponseObject> mObjectClass;
+    private ProgressDialog mProgressDialog;
 
     public AppRestClient(Context context, String tag, String url, Class<TResponseObject> objectClass, OnServiceResponseListener<AppResponseObject> listener) {
         super(context, tag, url, listener);
@@ -31,5 +34,33 @@ public class AppRestClient<TResponseObject extends AppResponseObject> extends Ba
     @Override
     protected BaseRequest createRequest(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
         return new ServiceRequest(method, url, listener, errorListener);
+    }
+
+    public void setProgressDialog(ProgressDialog dialog) {
+        mProgressDialog = dialog;
+    }
+
+    @Override
+    public void executeGet() {
+        super.executeGet();
+        if (mProgressDialog != null && !mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
+    }
+
+    @Override
+    public void onResponse(String responseString) {
+        super.onResponse(responseString);
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        super.onErrorResponse(error);
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }

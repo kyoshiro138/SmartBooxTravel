@@ -10,6 +10,7 @@ import com.smartboox.travel.appimplementation.service.response.AuthenticateRespo
 import com.smartboox.travel.appimplementation.service.response.GetBasicInfoResponseObject;
 import com.smartboox.travel.appimplementation.service.response.GetProfileResponseObject;
 import com.smartboox.travel.core.database.ActiveAndroidDatabaseHelper;
+import com.smartboox.travel.core.dialog.progress.SystemProgressDialog;
 import com.smartboox.travel.core.service.client.OnServiceResponseListener;
 import com.smartboox.travel.utils.ApplicationPreference;
 
@@ -74,7 +75,11 @@ public class UserManager {
 
         String url = String.format("%s?username=%s", ServiceConstant.URL_GET_BASIC_INFO, username);
 
+        SystemProgressDialog<String> dialog = new SystemProgressDialog<>(mContext);
+        dialog.setMessage("Checking username...");
+
         AppRestClient<GetBasicInfoResponseObject> restClient = new AppRestClient<>(mContext, SERVICE_GET_BASIC_INFO, url, GetBasicInfoResponseObject.class, listener);
+        restClient.setProgressDialog(dialog);
         restClient.executeGet();
     }
 
@@ -90,7 +95,11 @@ public class UserManager {
 
         String url = String.format("%s?username=%s&password=%s", ServiceConstant.URL_AUTHENTICATION, username, password);
 
+        SystemProgressDialog<String> dialog = new SystemProgressDialog<>(mContext);
+        dialog.setMessage("Signing in...");
+
         AppRestClient<AuthenticateResponseObject> restClient = new AppRestClient<>(mContext, SERVICE_AUTHENTICATION, url, AuthenticateResponseObject.class, listener);
+        restClient.setProgressDialog(dialog);
         restClient.executeGet();
     }
 
