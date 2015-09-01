@@ -17,10 +17,10 @@
             android:adjustViewBounds="true"
             android:src="@drawable/bg_ratio16x9"/>
 
-        <ImageButton style="@style/s_menu_user_avatar_style"/>
+        <ImageButton style="@style/stl_menu_user_avatar_style"/>
 
         <Button
-            style="@style/s_menu_user_email_style"
+            style="@style/stl_menu_user_email_style"
             android:drawableEnd="@android:drawable/arrow_down_float"
             android:drawableRight="@android:drawable/arrow_down_float"
             android:text="@string/s_app_name"/>

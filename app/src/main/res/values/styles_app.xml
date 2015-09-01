@@ -5,7 +5,7 @@
     </style>
 
     <!-- Toolbar -->
-    <style name="s_toolbar_navigate_button_style">
+    <style name="stl_toolbar_navigate_button_style">
         <item name="android:layout_width">@dimen/d_toolbar_image_button_size</item>
         <item name="android:layout_height">@dimen/d_toolbar_image_button_size</item>
         <item name="android:padding">@dimen/d_toolbar_image_button_padding</item>
@@ -13,7 +13,7 @@
         <item name="android:layout_marginLeft">@dimen/d_toolbar_horizontal_margin</item>
     </style>
 
-    <style name="s_toolbar_title_text_style">
+    <style name="stl_toolbar_title_text_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_marginLeft">@dimen/d_toolbar_title_left_margin</item>
@@ -21,7 +21,7 @@
     </style>
 
     <!-- Menu -->
-    <style name="s_menu_user_avatar_style">
+    <style name="stl_menu_user_avatar_style">
         <item name="android:layout_width">@dimen/d_menu_avatar_image_size</item>
         <item name="android:layout_height">@dimen/d_menu_avatar_image_size</item>
         <item name="android:layout_marginLeft">@dimen/d_menu_margin</item>
@@ -29,7 +29,7 @@
         <item name="android:background">@drawable/shape_menu_avatar</item>
     </style>
 
-    <style name="s_menu_user_email_style">
+    <style name="stl_menu_user_email_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/d_menu_user_info_height</item>
         <item name="android:layout_marginLeft">@dimen/d_menu_margin</item>
