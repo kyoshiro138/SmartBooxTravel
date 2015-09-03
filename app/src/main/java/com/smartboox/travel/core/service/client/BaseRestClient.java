@@ -34,12 +34,5 @@ public abstract class BaseRestClient<TResponseObject> extends BaseServiceClient 
         }
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        if (mListener != null) {
-            mListener.onResponseFailed(mTag, error);
-        }
-    }
-
     protected abstract BaseJsonResponse<TResponseObject> createResponse(String responseString) throws IOException;
 }

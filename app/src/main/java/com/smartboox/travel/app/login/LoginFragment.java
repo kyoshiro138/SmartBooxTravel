@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.smartboox.travel.R;
 import com.smartboox.travel.app.home.HomeFragment;
@@ -20,6 +21,7 @@ import com.smartboox.travel.core.animation.OnAnimationBeginListener;
 import com.smartboox.travel.core.animation.OnAnimationFinishedListener;
 import com.smartboox.travel.core.animation.ResizeAnimator;
 import com.smartboox.travel.core.animation.ZoomOutAnimator;
+import com.smartboox.travel.core.dialog.alert.WarningDialog;
 import com.smartboox.travel.core.service.client.OnServiceResponseListener;
 import com.smartboox.travel.core.view.textfield.OnTextChangedListener;
 import com.smartboox.travel.core.view.textfield.SingleLineTextField;

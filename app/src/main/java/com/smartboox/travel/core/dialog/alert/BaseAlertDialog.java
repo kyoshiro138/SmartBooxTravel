@@ -22,17 +22,17 @@ public abstract class BaseAlertDialog extends AlertDialog
         return mTag;
     }
 
-    protected BaseAlertDialog(Context context) {
+    public BaseAlertDialog(Context context) {
         super(context);
         initDialog(context);
     }
 
-    protected BaseAlertDialog(Context context, int theme) {
+    public BaseAlertDialog(Context context, int theme) {
         super(context, theme);
         initDialog(context);
     }
 
-    protected BaseAlertDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    public BaseAlertDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         initDialog(context);
     }

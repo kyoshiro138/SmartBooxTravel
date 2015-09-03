@@ -17,15 +17,15 @@ public abstract class BaseCustomAlertDialog extends BaseAlertDialog implements V
 
     protected abstract int getDialogLayoutResource();
 
-    protected BaseCustomAlertDialog(Context context) {
+    public BaseCustomAlertDialog(Context context) {
         super(context);
     }
 
-    protected BaseCustomAlertDialog(Context context, int theme) {
+    public BaseCustomAlertDialog(Context context, int theme) {
         super(context, theme);
     }
 
-    protected BaseCustomAlertDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
+    public BaseCustomAlertDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
@@ -46,7 +46,7 @@ public abstract class BaseCustomAlertDialog extends BaseAlertDialog implements V
 
     protected abstract void bindDialogView(View rootView);
 
-    protected final void bindButton(View rootView, int which, int viewId) {
+    protected void bindButton(View rootView, int which, int viewId) {
         if (rootView != null && viewId > 0) {
             switch (which) {
                 case BUTTON_POSITIVE:
@@ -64,13 +64,13 @@ public abstract class BaseCustomAlertDialog extends BaseAlertDialog implements V
         }
     }
 
-    protected final void bindTitle(View rootView, int viewId) {
+    protected void bindTitle(View rootView, int viewId) {
         if (rootView != null && viewId > 0) {
             mTitleText = (TextView) rootView.findViewById(viewId);
         }
     }
 
-    protected final void bindMessage(View rootView, int viewId) {
+    protected void bindMessage(View rootView, int viewId) {
         if (rootView != null && viewId > 0) {
             mMessageText = (TextView) rootView.findViewById(viewId);
         }
@@ -111,6 +111,14 @@ public abstract class BaseCustomAlertDialog extends BaseAlertDialog implements V
     @Override
     public void setTitle(CharSequence title) {
         if (mTitleText != null) {
+            mTitleText.setText(title);
+        }
+    }
+
+    @Override
+    public void setTitle(int titleId) {
+        String title = mContext.getString(titleId);
+        if (title != null && !title.equals("")) {
             mTitleText.setText(title);
         }
     }

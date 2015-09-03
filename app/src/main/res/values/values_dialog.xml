@@ -2,34 +2,24 @@
 <resources>
     <!-- DIMENSION -->
     <dimen name="d_dialog_width">280dp</dimen>
-    <dimen name="d_dialog_text_margin">24dp</dimen>
-    <dimen name="d_dialog_title_bottom_margin">20dp</dimen>
+    <dimen name="d_dialog_content_padding">24dp</dimen>
+    <dimen name="d_dialog_content_margin">20dp</dimen>
     <dimen name="d_dialog_button_margin">8dp</dimen>
+    <dimen name="d_dialog_button_min_width">64dp</dimen>
+    <dimen name="d_dialog_button_layout_height">52dp</dimen>
 
     <!-- STYLE -->
-    <style name="stl_dialog_title_layout_material_style">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">@dimen/d_dialog_title_bottom_margin</item>
-        <item name="android:layout_marginLeft">@dimen/d_dialog_text_margin</item>
-        <item name="android:layout_marginRight">@dimen/d_dialog_text_margin</item>
-    </style>
-
-    <style name="stl_dialog_message_layout_material_style">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">@dimen/d_dialog_text_margin</item>
-        <item name="android:layout_marginLeft">@dimen/d_dialog_text_margin</item>
-        <item name="android:layout_marginRight">@dimen/d_dialog_text_margin</item>
-    </style>
-
     <style name="stl_dialog_button_layout_material_style">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/d_dialog_button_layout_height</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">end</item>
+        <item name="android:gravity">end|center_vertical</item>
         <item name="android:layout_marginLeft">@dimen/d_dialog_button_margin</item>
         <item name="android:layout_marginRight">@dimen/d_dialog_button_margin</item>
+    </style>
+
+    <style name="stl_dialog_material_button" parent="stl_material_button_flat_light">
+        <item name="android:minWidth">@dimen/d_dialog_button_min_width</item>
     </style>
 
     <style name="stl_dialog_list_layout_material_style">
