@@ -45,18 +45,6 @@
         style="@style/stl_dialog_button_layout_material_style">
 
         <com.smartboox.travel.core.view.button.MaterialButton
-            android:id="@+id/dialog_negative_button"
-            style="@style/stl_dialog_material_button"
-            android:layout_marginRight="8dp"
-            android:visibility="gone"/>
-
-        <com.smartboox.travel.core.view.button.MaterialButton
-            android:id="@+id/dialog_neutral_button"
-            style="@style/stl_dialog_material_button"
-            android:layout_marginRight="8dp"
-            android:visibility="gone"/>
-
-        <com.smartboox.travel.core.view.button.MaterialButton
             android:id="@+id/dialog_positive_button"
             style="@style/stl_dialog_material_button"/>
 

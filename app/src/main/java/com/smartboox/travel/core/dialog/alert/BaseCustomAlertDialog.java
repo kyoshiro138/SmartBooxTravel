@@ -140,4 +140,18 @@ public abstract class BaseCustomAlertDialog extends BaseAlertDialog implements V
             onClick(this, BUTTON_NEGATIVE);
         }
     }
+
+    @Override
+    public Button getButton(int whichButton) {
+        switch (whichButton) {
+            case BUTTON_POSITIVE:
+                return mPositiveButton;
+            case BUTTON_NEUTRAL:
+                return mNeutralButton;
+            case BUTTON_NEGATIVE:
+                return mNegativeButton;
+            default:
+                return null;
+        }
+    }
 }

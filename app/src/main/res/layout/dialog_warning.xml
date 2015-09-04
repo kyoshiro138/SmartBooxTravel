@@ -5,40 +5,19 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/dialog_message_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="@dimen/d_dialog_content_padding">
 
-        <FrameLayout
-            android:id="@+id/dialog_title_layout"
-            android:layout_width="match_parent"
+        <com.smartboox.travel.core.view.label.MaterialLabel
+            android:id="@+id/dialog_message_text"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/d_dialog_content_margin">
-
-            <com.smartboox.travel.core.view.label.MaterialLabel
-                android:id="@+id/dialog_title_text"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/c_text_black_87"
-                app:display_type="title"/>
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/dialog_message_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.smartboox.travel.core.view.label.MaterialLabel
-                android:id="@+id/dialog_message_text"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/c_text_black_54"
-                app:display_type="subhead"/>
-        </FrameLayout>
-
-    </LinearLayout>
+            android:textColor="@color/c_text_black_54"
+            app:display_type="subhead"/>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/dialog_button_layout"

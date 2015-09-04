@@ -34,6 +34,4 @@ public class WarningDialog extends BaseCustomAlertDialog {
         bindMessage(rootView, R.id.dialog_message_text);
         bindButton(rootView, BUTTON_POSITIVE, R.id.dialog_positive_button);
     }
-
-
 }

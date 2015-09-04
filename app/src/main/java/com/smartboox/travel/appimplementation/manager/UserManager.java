@@ -104,6 +104,7 @@ public class UserManager {
     }
 
     public void saveSignIn(User user, String key) {
+        clearUser();
         ActiveAndroidDatabaseHelper.saveItem(user);
 
         mPreference.saveValue(PREFERENCE_SIGNED_IN, true, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
@@ -111,6 +112,10 @@ public class UserManager {
     }
 
     public void signOut() {
+        clearUser();
+    }
+
+    private void clearUser() {
         // clear user
         ActiveAndroidDatabaseHelper.removeAll(User.class);
 
