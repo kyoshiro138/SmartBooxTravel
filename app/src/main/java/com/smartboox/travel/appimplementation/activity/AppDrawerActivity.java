@@ -8,6 +8,7 @@ import com.activeandroid.ActiveAndroid;
 import com.smartboox.travel.R;
 import com.smartboox.travel.app.intro.IntroFragment;
 import com.smartboox.travel.app.menu.MenuFragment;
+import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.navigator.AppNavigator;
 import com.smartboox.travel.core.activity.drawer.BaseDrawerActivity;
 import com.smartboox.travel.core.activity.toolbar.ToolbarActivity;
@@ -98,5 +99,10 @@ public class AppDrawerActivity extends BaseDrawerActivity
     protected void initContentFragment() {
         getNavigator().navigateToFirstLevelFragment(new IntroFragment(), null);
         getToolbar().setToolbarVisibility(View.GONE);
+    }
+
+    public void reloadMenu(User user) {
+        MenuFragment fragment = (MenuFragment) getSupportFragmentManager().findFragmentById(getMenuLayoutId());
+        fragment.loadMenu(user);
     }
 }

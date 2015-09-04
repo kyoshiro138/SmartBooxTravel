@@ -9,8 +9,8 @@ import com.smartboox.travel.core.adapter.list.BaseListAdapter;
 
 import java.util.List;
 
-public class MenuListAdapter extends BaseListAdapter<String> {
-    public MenuListAdapter(Context context, List<String> itemList) {
+public class MenuListAdapter extends BaseListAdapter<MenuItem> {
+    public MenuListAdapter(Context context, List<MenuItem> itemList) {
         super(context, itemList);
     }
 
@@ -23,16 +23,16 @@ public class MenuListAdapter extends BaseListAdapter<String> {
     protected Object bindViewHolder(View view) {
         MenuItemViewHolder viewHolder = new MenuItemViewHolder();
 
-        viewHolder.mText = (TextView) view.findViewById(R.id.tv_menu_text);
+        viewHolder.mText = (TextView) view.findViewById(R.id.tv_menu_item_title);
 
         return viewHolder;
     }
 
     @Override
-    protected void loadData(Object viewHolder, String menuItem) {
+    protected void loadData(Object viewHolder, MenuItem menuItem) {
         MenuItemViewHolder menuViewHolder = (MenuItemViewHolder) viewHolder;
 
-        menuViewHolder.mText.setText(menuItem);
+        menuViewHolder.mText.setText(menuItem.getMenuTitle());
 //        menuViewHolder.mImage.setImageResource(android.R.drawable.ic_menu_add);
     }
 

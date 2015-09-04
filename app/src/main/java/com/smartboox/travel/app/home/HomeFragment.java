@@ -5,8 +5,10 @@ import android.view.View;
 
 import com.smartboox.travel.R;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
+import com.smartboox.travel.appimplementation.manager.UserManager;
 
 public class HomeFragment extends AppFragment {
+    private UserManager mUserManager;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -27,6 +29,7 @@ public class HomeFragment extends AppFragment {
 
     @Override
     protected void loadData() {
-
+        mUserManager = new UserManager(getActivity());
+        mActivity.reloadMenu(mUserManager.getLocalUser());
     }
 }
