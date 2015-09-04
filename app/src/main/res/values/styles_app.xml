@@ -15,7 +15,8 @@
 
     <style name="stl_toolbar_title_text_style">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginLeft">@dimen/d_toolbar_title_left_margin</item>
         <item name="android:gravity">center</item>
     </style>

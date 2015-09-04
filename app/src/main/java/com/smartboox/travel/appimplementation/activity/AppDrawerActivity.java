@@ -61,6 +61,7 @@ public class AppDrawerActivity extends BaseDrawerActivity
         if (mToolbar == null) {
             View toolbarView = findViewById(R.id.toolbar_layout);
             mToolbar = new AppToolbarViewHolder(this, toolbarView);
+            mToolbar.setToolbarShadowView(findViewById(R.id.toolbar_shadow_view));
         }
         return mToolbar;
     }

@@ -11,6 +11,7 @@ import com.smartboox.travel.core.activity.toolbar.BaseToolbarViewHolder;
 public class AppToolbarViewHolder extends BaseToolbarViewHolder {
     private TextView mTitleTextView;
     private ImageButton mMenuButton;
+    private View mShadowView;
 
     public AppToolbarViewHolder(Context context, View toolbarView) {
         super(context, toolbarView);
@@ -24,5 +25,15 @@ public class AppToolbarViewHolder extends BaseToolbarViewHolder {
         }
     }
 
+    public void setToolbarShadowView(View shadowView) {
+        mShadowView = shadowView;
+    }
 
+    @Override
+    public void setToolbarVisibility(int visibility) {
+        super.setToolbarVisibility(visibility);
+        if (mShadowView != null) {
+            mShadowView.setVisibility(visibility);
+        }
+    }
 }
