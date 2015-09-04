@@ -1,14 +1,16 @@
 package com.smartboox.travel.app.login;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.smartboox.travel.R;
 import com.smartboox.travel.app.home.HomeFragment;
+import com.smartboox.travel.appimplementation.dialog.AppDialogBuilder;
+import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.UserManager;
 import com.smartboox.travel.appimplementation.service.AppResponseObject;
@@ -21,7 +23,8 @@ import com.smartboox.travel.core.animation.OnAnimationBeginListener;
 import com.smartboox.travel.core.animation.OnAnimationFinishedListener;
 import com.smartboox.travel.core.animation.ResizeAnimator;
 import com.smartboox.travel.core.animation.ZoomOutAnimator;
-import com.smartboox.travel.core.dialog.alert.WarningDialog;
+import com.smartboox.travel.core.dialog.Dialog;
+import com.smartboox.travel.core.dialog.OnDialogButtonClickListener;
 import com.smartboox.travel.core.service.client.OnServiceResponseListener;
 import com.smartboox.travel.core.view.textfield.OnTextChangedListener;
 import com.smartboox.travel.core.view.textfield.SingleLineTextField;
@@ -30,7 +33,9 @@ public class LoginFragment extends AppFragment
         implements View.OnClickListener,
         OnAnimationFinishedListener,
         OnAnimationBeginListener,
-        OnTextChangedListener, OnServiceResponseListener<AppResponseObject> {
+        OnTextChangedListener,
+        OnServiceResponseListener<AppResponseObject>,
+        OnDialogButtonClickListener {
     private SingleLineTextField mTextFieldUsername;
     private SingleLineTextField mTextFieldPassword;
     private View mLayoutLogin;
@@ -49,6 +54,7 @@ public class LoginFragment extends AppFragment
     private ResizeAnimator mResizeAnimator;
 
     private UserManager mManager;
+    private AppDialogBuilder mDialogBuilder;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -88,6 +94,7 @@ public class LoginFragment extends AppFragment
         mTextFieldPassword.setHint(R.string.s_screen_login_password);
 
         mManager = new UserManager(getActivity());
+        mDialogBuilder = new AppDialogBuilder(getActivity());
     }
 
     @Override
@@ -251,10 +258,8 @@ public class LoginFragment extends AppFragment
             mTextFieldPassword.setText("");
             showPasswordLayout();
         } else {
-            // TODO: Show dialog to login as guest
-            int errorCode = responseObject.getResponseCode();
-            String message = responseObject.getMessage();
-            showToast(String.format("Error %d: %s", errorCode, message));
+            Dialog dialog = mDialogBuilder.buildConfirmDialog(AppDialogBuilder.DIALOG_GUEST_LOGIN, "This user is not existed, Do you want to login as guest?", this);
+            dialog.show();
         }
     }
 
@@ -264,10 +269,24 @@ public class LoginFragment extends AppFragment
             mManager.saveSignIn(responseObject.getResponseData().getUser(), responseObject.getResponseData().getKey());
             getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
         } else {
-            // TODO: Show dialog wrong password warning
-            int errorCode = responseObject.getResponseCode();
             String message = responseObject.getMessage();
-            showToast(String.format("Error %d: %s", errorCode, message));
+            Dialog dialog = mDialogBuilder.buildWarningDialog(AppDialogBuilder.DIALOG_GUEST_LOGIN, message, null);
+            dialog.show();
+        }
+    }
+
+    @Override
+    public void onClick(Dialog dialog, int which) {
+        switch (dialog.getTag()) {
+            case AppDialogBuilder.DIALOG_GUEST_LOGIN:
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    User user = mManager.createGuestUser(mTextFieldUsername.getText().toString());
+                    mManager.saveSignIn(user, "");
+                    getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
+                }
+                break;
+            default:
+                break;
         }
     }
 }

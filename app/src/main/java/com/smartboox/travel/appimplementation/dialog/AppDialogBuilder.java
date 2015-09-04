@@ -10,6 +10,8 @@ import com.smartboox.travel.core.dialog.alert.WarningDialog;
 import com.smartboox.travel.core.dialog.alert.WarningTitleDialog;
 
 public class AppDialogBuilder {
+    public static final String DIALOG_GUEST_LOGIN = "DIALOG_GUEST_LOGIN";
+
     private Dialog mCurrentActiveDialog = null;
     private Context mContext;
 

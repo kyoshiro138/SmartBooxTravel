@@ -36,8 +36,8 @@ public class ConfirmDialog extends BaseCustomAlertDialog {
     protected void initDialog(Context context) {
         super.initDialog(context);
 
-        getButton(BUTTON_POSITIVE).setText("OK");
-        getButton(BUTTON_NEGATIVE).setText("CANCEL");
+        setButton(BUTTON_POSITIVE, "OK");
+        setButton(BUTTON_NEGATIVE, "CANCEL");
 
         getButton(BUTTON_NEGATIVE).setVisibility(View.VISIBLE);
     }
