@@ -13,8 +13,19 @@ public class MenuItem {
         return mMenuTitle;
     }
 
+    private int mMenuImageId;
+
+    public int getMenuImageId() {
+        return mMenuImageId;
+    }
+
     public MenuItem(int id, String title) {
+        this(id, title, 0);
+    }
+
+    public MenuItem(int id, String title, int imageId) {
         mMenuId = id;
         mMenuTitle = title;
+        mMenuImageId = imageId;
     }
 }

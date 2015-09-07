@@ -5,8 +5,7 @@
     <dimen name="d_list_normal_layout_height">56dp</dimen>
     <dimen name="d_list_large_layout_height">72dp</dimen>
     <dimen name="d_list_vertical_padding">16dp</dimen>
-
-    <dimen name="d_list_single_text_bottom_padding">4dp</dimen>
+    <dimen name="d_list_item_image_size">24dp</dimen>
 
     <!-- STYLE -->
     <style name="stl_list_single_text_layout_style">
@@ -18,9 +17,7 @@
 
     <style name="stl_list_single_line_text_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:gravity">start|center_vertical</item>
-        <item name="android:paddingBottom">@dimen/d_list_single_text_bottom_padding</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/c_text_black_87</item>
     </style>
 </resources>

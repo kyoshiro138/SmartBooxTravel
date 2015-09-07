@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
@@ -18,14 +18,34 @@
             android:adjustViewBounds="true"
             android:src="@drawable/bg_ratio16x9"/>
 
-        <ImageButton style="@style/stl_menu_user_avatar_style"/>
+        <ImageButton
+            style="@style/stl_menu_user_avatar_style"
+            android:layout_marginLeft="@dimen/d_menu_margin"
+            android:layout_marginTop="@dimen/d_menu_margin"/>
 
-        <com.smartboox.travel.core.view.label.MaterialLabel
-            android:id="@+id/tv_menu_username"
-            style="@style/stl_menu_user_email_style"
-            app:display_type="body2"
-            android:textColor="@color/c_text_white"
-            android:text="@string/s_app_name"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d_menu_user_subtitle_height"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/d_menu_margin"
+            android:layout_marginRight="@dimen/d_menu_margin">
+
+            <com.smartboox.travel.core.view.label.MaterialLabel
+                android:id="@+id/tv_menu_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/c_text_white"
+                app:display_type="body2"/>
+
+            <com.smartboox.travel.core.view.label.MaterialLabel
+                android:id="@+id/tv_menu_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/c_text_white"
+                app:display_type="body1"/>
+        </FrameLayout>
 
     </FrameLayout>
 

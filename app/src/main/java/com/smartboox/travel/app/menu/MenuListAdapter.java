@@ -2,6 +2,7 @@ package com.smartboox.travel.app.menu;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smartboox.travel.R;
@@ -16,7 +17,7 @@ public class MenuListAdapter extends BaseListAdapter<MenuItem> {
 
     @Override
     protected int getItemLayoutResource() {
-        return R.layout.list_menu_item;
+        return R.layout.list_single_line;
     }
 
     @Override
@@ -24,6 +25,7 @@ public class MenuListAdapter extends BaseListAdapter<MenuItem> {
         MenuItemViewHolder viewHolder = new MenuItemViewHolder();
 
         viewHolder.mText = (TextView) view.findViewById(R.id.tv_menu_item_title);
+        viewHolder.mImage = (ImageView) view.findViewById(R.id.iv_menu_item_image);
 
         return viewHolder;
     }
@@ -33,11 +35,15 @@ public class MenuListAdapter extends BaseListAdapter<MenuItem> {
         MenuItemViewHolder menuViewHolder = (MenuItemViewHolder) viewHolder;
 
         menuViewHolder.mText.setText(menuItem.getMenuTitle());
-//        menuViewHolder.mImage.setImageResource(android.R.drawable.ic_menu_add);
+        if (menuItem.getMenuImageId() > 0) {
+            menuViewHolder.mImage.setImageResource(menuItem.getMenuImageId());
+        } else {
+            menuViewHolder.mImage.setVisibility(View.GONE);
+        }
     }
 
     private static class MenuItemViewHolder {
         public TextView mText;
-//        public ImageView mImage;
+        public ImageView mImage;
     }
 }

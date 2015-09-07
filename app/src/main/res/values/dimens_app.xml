@@ -14,5 +14,6 @@
     <dimen name="d_menu_margin">16dp</dimen>
     <dimen name="d_menu_avatar_image_size">64dp</dimen>
     <dimen name="d_menu_avatar_image_radius">32dp</dimen>
+    <dimen name="d_menu_user_subtitle_height">56dp</dimen>
     <dimen name="d_menu_user_info_height">48dp</dimen>
 </resources>

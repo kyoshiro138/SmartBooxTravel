@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    style="@style/stl_list_single_text_layout_style"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/iv_menu_item_image"
+        android:layout_width="@dimen/d_list_item_image_size"
+        android:layout_height="@dimen/d_list_item_image_size"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="32dp"
+        tools:ignore="ContentDescription"/>
+
+    <com.smartboox.travel.core.view.label.MaterialLabel
+        android:id="@+id/tv_menu_item_title"
+        style="@style/stl_list_single_line_text_style"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_menu_item_image"
+        android:textColor="@color/c_text_black_87"
+        app:display_type="body2"/>
+</RelativeLayout>

@@ -61,10 +61,10 @@ public class MenuFragment extends AppFragment implements AdapterView.OnItemClick
 
             List<MenuItem> menuList = new ArrayList<>();
             if (user.getUserId() > 0) {
-                menuList.add(new MenuItem(MENU_SIGN_OUT, "Sign out"));
+                menuList.add(new MenuItem(MENU_SIGN_OUT, "Sign out", R.drawable.ic_power));
             } else {
                 menuList.add(new MenuItem(MENU_BECOME_MEMBER, "Become member"));
-                menuList.add(new MenuItem(MENU_SIGN_OUT, "Sign out"));
+                menuList.add(new MenuItem(MENU_SIGN_OUT, "Sign out", R.drawable.ic_power));
             }
 
             mMenuListAdapter = new MenuListAdapter(mActivity, menuList);
