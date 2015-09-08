@@ -99,11 +99,11 @@ public class IntroFragment extends AppFragment implements OnServiceResponseListe
 
     @Override
     public void onResponseFailed(String tag, VolleyError error) {
-
+        navigateToLoginScreen();
     }
 
     @Override
     public void onParseError(String tag, String response) {
-
+        navigateToLoginScreen();
     }
 }
