@@ -17,7 +17,7 @@ public class MenuListAdapter extends BaseListAdapter<MenuItem> {
 
     @Override
     protected int getItemLayoutResource() {
-        return R.layout.list_single_line;
+        return R.layout.list_item_single_line;
     }
 
     @Override

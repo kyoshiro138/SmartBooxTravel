@@ -1,24 +1,18 @@
-package com.smartboox.travel.core.adapter.list;
+package com.smartboox.travel.core.adapter.grid;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 
 import java.util.List;
 
-public abstract class BaseListAdapter<TListData> extends ArrayAdapter<TListData> {
+public abstract class BaseGridAdapter<TGridData> extends BaseAdapter {
     protected Context mContext;
-    protected List<TListData> mItemList;
-    protected OnItemButtonClickListener mButtonClickListener;
+    protected List<TGridData> mItemList;
 
-    public List<TListData> getItemList() {
-        return mItemList;
-    }
-
-    public BaseListAdapter(Context context, List<TListData> itemList) {
-        super(context, -1, itemList);
+    public BaseGridAdapter(Context context, List<TGridData> itemList) {
         mContext = context;
         mItemList = itemList;
     }
@@ -49,11 +43,22 @@ public abstract class BaseListAdapter<TListData> extends ArrayAdapter<TListData>
         return view;
     }
 
-    public void setOnItemButtonClickListener(OnItemButtonClickListener listener) {
-        mButtonClickListener = listener;
+    @Override
+    public int getCount() {
+        return mItemList.size();
     }
 
-    public void reloadItemList(List<TListData> itemList) {
+    @Override
+    public Object getItem(int position) {
+        return mItemList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    public void reloadItemList(List<TGridData> itemList) {
         mItemList = itemList;
         notifyDataSetChanged();
     }
@@ -62,5 +67,5 @@ public abstract class BaseListAdapter<TListData> extends ArrayAdapter<TListData>
 
     protected abstract Object bindViewHolder(View view);
 
-    protected abstract void loadData(Object viewHolder, TListData data);
+    protected abstract void loadData(Object viewHolder, TGridData data);
 }

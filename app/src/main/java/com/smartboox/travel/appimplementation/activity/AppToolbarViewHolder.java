@@ -36,4 +36,8 @@ public class AppToolbarViewHolder extends BaseToolbarViewHolder {
             mShadowView.setVisibility(visibility);
         }
     }
+
+    public void reloadToolbar(String title) {
+        mTitleTextView.setText(title);
+    }
 }

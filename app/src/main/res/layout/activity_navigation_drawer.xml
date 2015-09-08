@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="ContentDescription">
+    tools:ignore="ContentDescription"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,9 +27,10 @@
                 android:layout_centerVertical="true"
                 android:src="@android:drawable/ic_input_add"/>
 
-            <TextView
+            <com.smartboox.travel.core.view.label.MaterialLabel
                 android:id="@+id/toolbar_title_text"
                 style="@style/stl_toolbar_title_text_style"
+                app:display_type="subhead"
                 android:text="@string/s_app_name"
                 android:textColor="@color/c_text_white"/>
         </RelativeLayout>
