@@ -4,13 +4,12 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white">
 
-    <GridView
+    <com.smartboox.travel.core.view.gridview.AnimationGridView
         android:id="@+id/gv_home_place_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:horizontalSpacing="4dp"
-        android:layoutAnimation="@anim/anim_grid_item_appear"
         android:numColumns="2"
         android:padding="4dp"
         android:verticalSpacing="4dp"/>

@@ -2,18 +2,19 @@ package com.smartboox.travel.app.home;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.GridView;
+import android.widget.AdapterView;
 
 import com.smartboox.travel.R;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.UserManager;
+import com.smartboox.travel.core.view.gridview.AnimationGridView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends AppFragment {
+public class HomeFragment extends AppFragment implements AdapterView.OnItemClickListener {
     private UserManager mUserManager;
-    private GridView mPlaceGrid;
+    private AnimationGridView mPlaceGrid;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -29,7 +30,10 @@ public class HomeFragment extends AppFragment {
 
     @Override
     protected void bindView(View rootView) {
-        mPlaceGrid = (GridView) rootView.findViewById(R.id.gv_home_place_grid);
+        mPlaceGrid = (AnimationGridView) rootView.findViewById(R.id.gv_home_place_grid);
+        mPlaceGrid.setOnItemClickListener(this);
+        mPlaceGrid.setEnterAnimation(R.anim.anim_scale_appear);
+        mPlaceGrid.setExitAnimation(R.anim.anim_scale_disappear);
     }
 
     @Override
@@ -49,5 +53,10 @@ public class HomeFragment extends AppFragment {
         data.add("test");
         PlaceGridAdapter adapter = new PlaceGridAdapter(getActivity(), data);
         mPlaceGrid.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mPlaceGrid.startExitAnimation();
     }
 }

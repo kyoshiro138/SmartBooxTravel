@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:background="@drawable/bg_menu"
             android:src="@drawable/bg_ratio16x9"/>
 
         <ImageButton
@@ -35,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/c_text_white"
+                android:textColor="@color/c_text_black_87"
                 app:display_type="body2"/>
 
             <com.smartboox.travel.core.view.label.MaterialLabel
@@ -43,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:textColor="@color/c_text_white"
+                android:textColor="@color/c_text_black_87"
                 app:display_type="body1"/>
         </FrameLayout>
 
