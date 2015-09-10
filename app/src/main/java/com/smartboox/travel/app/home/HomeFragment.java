@@ -8,6 +8,7 @@ import com.smartboox.travel.R;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.UserManager;
 import com.smartboox.travel.core.view.gridview.AnimationGridView;
+import com.smartboox.travel.core.view.gridview.OnGridHiddenListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,6 @@ public class HomeFragment extends AppFragment implements AdapterView.OnItemClick
     protected void bindView(View rootView) {
         mPlaceGrid = (AnimationGridView) rootView.findViewById(R.id.gv_home_place_grid);
         mPlaceGrid.setOnItemClickListener(this);
-        mPlaceGrid.setEnterAnimation(R.anim.anim_scale_appear);
-        mPlaceGrid.setExitAnimation(R.anim.anim_scale_disappear);
     }
 
     @Override
@@ -51,12 +50,23 @@ public class HomeFragment extends AppFragment implements AdapterView.OnItemClick
         data.add("test");
         data.add("test");
         data.add("test");
+        data.add("test");
+        data.add("test");
+        data.add("test");
+        data.add("test");
+        data.add("test");
+        data.add("test");
         PlaceGridAdapter adapter = new PlaceGridAdapter(getActivity(), data);
-        mPlaceGrid.setAdapter(adapter);
+        mPlaceGrid.showGrid(adapter, R.anim.anim_scale_appear);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mPlaceGrid.startExitAnimation();
+        mPlaceGrid.hideGrid(R.anim.anim_scale_disappear, new OnGridHiddenListener() {
+            @Override
+            public void onHidden() {
+                showToast("Hidden");
+            }
+        });
     }
 }
