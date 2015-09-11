@@ -1,10 +1,12 @@
 package com.smartboox.travel.app.home;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.smartboox.travel.R;
+import com.smartboox.travel.app.locationlist.LocationListFragment;
 import com.smartboox.travel.appimplementation.domain.model.TravelPlace;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.PlaceManager;
@@ -58,11 +60,11 @@ public class HomeFragment extends AppFragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         mPlaceGrid.hideGrid(R.anim.anim_scale_disappear, new OnGridHiddenListener() {
             @Override
             public void onHidden() {
-                showToast("Hidden");
+                getNavigator().navigateTo(new LocationListFragment(), (Parcelable) mPlaceGrid.getItemAtPosition(position));
             }
         });
     }
