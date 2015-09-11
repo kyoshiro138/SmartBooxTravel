@@ -1,5 +1,6 @@
 package com.smartboox.travel.core.database;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
@@ -25,6 +26,18 @@ public class ActiveAndroidDatabaseHelper {
         return item.save();
     }
 
+    public static <T extends Model> int saveAll(List<T> itemList) {
+        int count = 0;
+        if (itemList != null && itemList.size() > 0) {
+            for (T item : itemList) {
+                item.save();
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     public static <T extends Model> T removeItem(Class<T> table, long id) {
         T item = T.load(table, id);
         if (item != null) {
@@ -42,4 +55,17 @@ public class ActiveAndroidDatabaseHelper {
         return new Delete().from(table).execute();
     }
 
+    public static void startTransactionExecution(OnTransactionExecuteListener listener) {
+        ActiveAndroid.beginTransaction();
+        try {
+            if (listener != null) {
+                listener.onExecute();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+    }
 }

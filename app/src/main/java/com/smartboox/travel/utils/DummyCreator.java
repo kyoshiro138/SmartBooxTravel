@@ -13,9 +13,8 @@ public class DummyCreator {
 
         for (int i = 0; i < 10; i++) {
             Random rand = new Random(System.currentTimeMillis());
-            int locationSize = rand.nextInt() % 10;
             List<TravelLocation> locations = new ArrayList<>();
-            for (int j = 0; j < locationSize; j++) {
+            for (int j = 0; j < 5; j++) {
                 locations.add(new TravelLocation(String.format("Location %d", j + 1)));
             }
             TravelPlace place = new TravelPlace(String.format("Place %d", i + 1), locations);
