@@ -9,6 +9,7 @@ import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.UserManager;
 import com.smartboox.travel.core.view.gridview.AnimationGridView;
 import com.smartboox.travel.core.view.gridview.OnGridHiddenListener;
+import com.smartboox.travel.utils.DummyCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,21 +43,7 @@ public class HomeFragment extends AppFragment implements AdapterView.OnItemClick
 
         mActivity.getToolbar().reloadToolbar("Where are you travelling?");
 
-        List<String> data = new ArrayList<>();
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        data.add("test");
-        PlaceGridAdapter adapter = new PlaceGridAdapter(getActivity(), data);
+        PlaceGridAdapter adapter = new PlaceGridAdapter(getActivity(), DummyCreator.createTravelPlaceList());
         mPlaceGrid.showGrid(adapter, R.anim.anim_scale_appear);
     }
 

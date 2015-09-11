@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:background="@color/c_debug_alpha_green">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c_debug_alpha_green"
+    tools:ignore="ContentDescription">
 
     <ImageView
         android:layout_width="match_parent"
@@ -11,16 +15,32 @@
         android:src="@drawable/bg_ratio1x1"/>
 
     <ImageView
+        android:id="@+id/iv_place_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/c_debug_alpha_blue">
+        android:background="#6000">
 
+        <com.smartboox.travel.core.view.label.MaterialLabel
+            android:id="@+id/tv_place_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/c_text_white"
+            android:textSize="16sp"
+            app:material_font="roboto_medium"/>
 
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:src="@drawable/ic_map"/>
     </RelativeLayout>
 
 </FrameLayout>

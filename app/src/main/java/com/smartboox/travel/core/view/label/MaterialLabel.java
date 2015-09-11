@@ -26,6 +26,10 @@ public class MaterialLabel extends TextView {
     private static final int DISPLAY_TYPE_BODY_1 = 9;
     private static final int DISPLAY_TYPE_CAPTION = 10;
 
+    private static final int FONT_TYPE_ROBOTO_LIGHT = 1;
+    private static final int FONT_TYPE_ROBOTO_REGULAR = 2;
+    private static final int FONT_TYPE_ROBOTO_MEDIUM = 3;
+
     private Context mContext;
 
     public MaterialLabel(Context context) {
@@ -52,11 +56,15 @@ public class MaterialLabel extends TextView {
     private void initAttributes(Context context, AttributeSet attrs) {
         TypedArray displayTypeAttr = context.obtainStyledAttributes(attrs, R.styleable.MaterialLabel);
         int displayType = displayTypeAttr.getInt(R.styleable.MaterialLabel_display_type, 0);
+        int fontType = displayTypeAttr.getInt(R.styleable.MaterialLabel_material_font, 0);
         displayTypeAttr.recycle();
 
-        setTypeface(getFontByDisplayType(displayType));
         if (displayType != 0) {
+            setTypeface(getFontByDisplayType(displayType));
             setTextSize(TypedValue.COMPLEX_UNIT_SP, getFontSizeByDisplayType(displayType));
+        }
+        if (fontType != 0) {
+            setTypeface(getFont(fontType));
         }
     }
 
@@ -111,6 +119,19 @@ public class MaterialLabel extends TextView {
                 return 12f;
             default:
                 return 14f;
+        }
+    }
+
+    private Typeface getFont(int fontType) {
+        switch (fontType) {
+            case FONT_TYPE_ROBOTO_LIGHT:
+                return FontUtil.loadFont(mContext, FONT_PATH_ROBOTO_LIGHT);
+            case FONT_TYPE_ROBOTO_REGULAR:
+                return FontUtil.loadFont(mContext, FONT_PATH_ROBOTO_REGULAR);
+            case FONT_TYPE_ROBOTO_MEDIUM:
+                return FontUtil.loadFont(mContext, FONT_PATH_ROBOTO_MEDIUM);
+            default:
+                return FontUtil.loadFont(mContext, FONT_PATH_ROBOTO_REGULAR);
         }
     }
 }
