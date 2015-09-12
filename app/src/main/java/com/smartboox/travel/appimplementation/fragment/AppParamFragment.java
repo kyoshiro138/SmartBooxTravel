@@ -8,6 +8,12 @@ import com.smartboox.travel.core.navigator.ParamReceivable;
 
 public abstract class AppParamFragment<TParam extends Parcelable> extends AppFragment
         implements ParamReceivable<TParam> {
+    private TParam mParam;
+
+    public TParam getParam() {
+        return mParam;
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -15,9 +21,9 @@ public abstract class AppParamFragment<TParam extends Parcelable> extends AppFra
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            TParam param = bundle.getParcelable(getClass().getSimpleName());
+            mParam = bundle.getParcelable(getClass().getSimpleName());
 
-            receiveParam(param);
+            receiveParam(mParam);
         }
     }
 }
