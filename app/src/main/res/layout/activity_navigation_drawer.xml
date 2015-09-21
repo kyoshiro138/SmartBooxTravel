@@ -13,10 +13,15 @@
         android:layout_height="match_parent"
         android:background="@android:color/white">
 
+        <View android:layout_width="match_parent"
+            android:layout_height="@dimen/d_status_bar_height"
+            android:background="@color/c_primary_color700"/>
+
         <RelativeLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/d_toolbar_height"
+            android:layout_marginTop="@dimen/d_status_bar_height"
             android:background="@color/c_primary_color500">
 
             <ImageButton

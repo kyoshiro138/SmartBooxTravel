@@ -3,6 +3,7 @@ package com.smartboox.travel.appimplementation.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.activeandroid.ActiveAndroid;
 import com.smartboox.travel.R;
@@ -71,6 +72,8 @@ public class AppDrawerActivity extends BaseDrawerActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActiveAndroid.initialize(this);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
     @Override

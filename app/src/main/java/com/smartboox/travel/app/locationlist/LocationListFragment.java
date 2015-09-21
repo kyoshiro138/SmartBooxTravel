@@ -1,5 +1,6 @@
 package com.smartboox.travel.app.locationlist;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
@@ -13,6 +14,12 @@ public class LocationListFragment extends AppParamFragment<TravelPlace> {
     @Override
     protected int getFragmentLayoutResource() {
         return R.layout.fragment_location_list;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivity.setDrawerEnabled(true);
     }
 
     @Override
