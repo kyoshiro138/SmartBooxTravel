@@ -1,5 +1,6 @@
 package com.smartboox.travel.app.placeinfo;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.smartboox.travel.R;
@@ -12,6 +13,12 @@ public class PlaceInformationFragment extends AppParamFragment<TravelPlace> impl
     @Override
     protected int getFragmentLayoutResource() {
         return R.layout.fragment_place_info;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivity.setDrawerEnabled(true);
     }
 
     @Override

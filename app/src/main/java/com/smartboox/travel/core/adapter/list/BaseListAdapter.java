@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.smartboox.travel.core.adapter.OnItemButtonClickListener;
+
 import java.util.List;
 
-public abstract class BaseListAdapter<TListData> extends ArrayAdapter<TListData> {
+public abstract class BaseListAdapter<TListData> extends ArrayAdapter<TListData> implements View.OnClickListener {
     protected Context mContext;
     protected List<TListData> mItemList;
     protected OnItemButtonClickListener mButtonClickListener;
@@ -47,6 +49,11 @@ public abstract class BaseListAdapter<TListData> extends ArrayAdapter<TListData>
         loadData(viewHolder, mItemList.get(position));
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        
     }
 
     public void setOnItemButtonClickListener(OnItemButtonClickListener listener) {

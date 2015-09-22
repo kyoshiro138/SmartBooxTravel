@@ -2,6 +2,7 @@ package com.smartboox.travel.app.home;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,8 +26,11 @@ public class PlaceGridAdapter extends BaseGridAdapter<TravelPlace> {
     protected Object bindViewHolder(View view) {
         PlaceItemViewHolder viewHolder = new PlaceItemViewHolder();
 
-        viewHolder.mText = (TextView) view.findViewById(R.id.tv_place_name);
-        viewHolder.mImage = (ImageView) view.findViewById(R.id.iv_place_image);
+        viewHolder.mTextViewName = (TextView) view.findViewById(R.id.tv_place_name);
+        viewHolder.mImageViewPicture = (ImageView) view.findViewById(R.id.iv_place_image);
+        viewHolder.mButtonViewMap = (ImageButton) view.findViewById(R.id.btn_place_map);
+
+        viewHolder.mButtonViewMap.setOnClickListener(this);
 
         return viewHolder;
     }
@@ -35,11 +39,13 @@ public class PlaceGridAdapter extends BaseGridAdapter<TravelPlace> {
     protected void loadData(Object viewHolder, TravelPlace travelPlace) {
         PlaceItemViewHolder placeViewHolder = (PlaceItemViewHolder) viewHolder;
 
-        placeViewHolder.mText.setText(travelPlace.getName());
+        placeViewHolder.mTextViewName.setText(travelPlace.getName());
+        placeViewHolder.mButtonViewMap.setTag(travelPlace);
     }
 
     private static class PlaceItemViewHolder {
-        public TextView mText;
-        public ImageView mImage;
+        public TextView mTextViewName;
+        public ImageView mImageViewPicture;
+        public ImageButton mButtonViewMap;
     }
 }

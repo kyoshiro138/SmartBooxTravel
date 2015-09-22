@@ -1,4 +1,4 @@
-package com.smartboox.travel.core.adapter.list;
+package com.smartboox.travel.core.adapter;
 
 import android.view.View;
 

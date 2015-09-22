@@ -1,17 +1,19 @@
 package com.smartboox.travel.core.adapter.grid;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.smartboox.travel.core.adapter.OnItemButtonClickListener;
+
 import java.util.List;
 
-public abstract class BaseGridAdapter<TGridData> extends BaseAdapter {
+public abstract class BaseGridAdapter<TGridData> extends BaseAdapter implements View.OnClickListener {
     protected Context mContext;
     protected List<TGridData> mItemList;
+    protected OnItemButtonClickListener mButtonClickListener;
 
     public BaseGridAdapter(Context context, List<TGridData> itemList) {
         mContext = context;
@@ -57,6 +59,17 @@ public abstract class BaseGridAdapter<TGridData> extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(mButtonClickListener!=null) {
+            mButtonClickListener.onButtonClick(view);
+        }
+    }
+
+    public void setOnItemButtonClickListener(OnItemButtonClickListener listener) {
+        mButtonClickListener = listener;
     }
 
     public void reloadItemList(List<TGridData> itemList) {

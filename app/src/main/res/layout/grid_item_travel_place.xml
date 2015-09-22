@@ -36,6 +36,7 @@
             app:material_font="roboto_medium"/>
 
         <ImageButton
+            android:id="@+id/btn_place_map"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
