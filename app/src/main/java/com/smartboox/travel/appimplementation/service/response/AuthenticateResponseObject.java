@@ -12,12 +12,5 @@ public class AuthenticateResponseObject extends AppResponseObject<AuthenticateRe
         public String getKey() {
             return mKey;
         }
-
-        @JsonProperty("user")
-        private User mUser;
-
-        public User getUser() {
-            return mUser;
-        }
     }
 }

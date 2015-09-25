@@ -7,7 +7,7 @@ import com.smartboox.travel.appimplementation.service.AppResponseObject;
 import com.smartboox.travel.appimplementation.service.AppRestClient;
 import com.smartboox.travel.appimplementation.service.ServiceConstant;
 import com.smartboox.travel.appimplementation.service.response.AuthenticateResponseObject;
-import com.smartboox.travel.appimplementation.service.response.GetBasicInfoResponseObject;
+import com.smartboox.travel.appimplementation.service.response.GetLoginInfoResponseObject;
 import com.smartboox.travel.appimplementation.service.response.GetProfileResponseObject;
 import com.smartboox.travel.core.database.ActiveAndroidDatabaseHelper;
 import com.smartboox.travel.core.dialog.progress.SystemProgressDialog;
@@ -73,18 +73,18 @@ public class UserManager {
             username = "guest";
         }
 
-        String url = String.format("%s?username=%s", ServiceConstant.URL_GET_BASIC_INFO, username);
+        String url = String.format("%s?username=%s", ServiceConstant.URL_GET_LOGIN_INFO, username);
 
         SystemProgressDialog<String> dialog = new SystemProgressDialog<>(mContext);
         dialog.setMessage("Checking username...");
 
-        AppRestClient<GetBasicInfoResponseObject> restClient = new AppRestClient<>(mContext, SERVICE_GET_BASIC_INFO, url, GetBasicInfoResponseObject.class, listener);
+        AppRestClient<GetLoginInfoResponseObject> restClient = new AppRestClient<>(mContext, SERVICE_GET_BASIC_INFO, url, GetLoginInfoResponseObject.class, listener);
         restClient.setProgressDialog(dialog);
         restClient.executeGet();
     }
 
     public User createGuestUser(String username) {
-        return new User(0, username, 0);
+        return new User(0, username, 0, "Guest", "", "", "");
     }
 
     public void authenticate(String username, String password, OnServiceResponseListener<AppResponseObject> listener) {
@@ -103,16 +103,18 @@ public class UserManager {
         restClient.executeGet();
     }
 
-    public void saveSignIn(User user, String key) {
-        clearUser();
-        ActiveAndroidDatabaseHelper.saveItem(user);
-
+    public void saveAuthenticationKey(String key) {
         mPreference.saveValue(PREFERENCE_SIGNED_IN, true, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
         mPreference.saveValue(PREFERENCE_AUTH_KEY, key, ApplicationPreference.PREFERENCE_TYPE_STRING);
     }
 
     public void signOut() {
         clearUser();
+    }
+
+    public void saveUser(User user) {
+        clearUser();
+        ActiveAndroidDatabaseHelper.saveItem(user);
     }
 
     private void clearUser() {

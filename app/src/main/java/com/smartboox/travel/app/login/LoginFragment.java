@@ -15,7 +15,7 @@ import com.smartboox.travel.appimplementation.fragment.AppFragment;
 import com.smartboox.travel.appimplementation.manager.UserManager;
 import com.smartboox.travel.appimplementation.service.AppResponseObject;
 import com.smartboox.travel.appimplementation.service.response.AuthenticateResponseObject;
-import com.smartboox.travel.appimplementation.service.response.GetBasicInfoResponseObject;
+import com.smartboox.travel.appimplementation.service.response.GetLoginInfoResponseObject;
 import com.smartboox.travel.core.animation.BaseAnimator;
 import com.smartboox.travel.core.animation.FadeInAnimator;
 import com.smartboox.travel.core.animation.FadeOutAnimator;
@@ -55,6 +55,7 @@ public class LoginFragment extends AppFragment
 
     private UserManager mManager;
     private AppDialogBuilder mDialogBuilder;
+    private User mUser;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -147,8 +148,7 @@ public class LoginFragment extends AppFragment
             case R.id.btn_login_sign_in:
                 String password = mTextFieldPassword.getText().toString();
                 if (!password.equals("")) {
-                    username = mTextViewUsername.getText().toString();
-                    mManager.authenticate(username, password, this);
+                    mManager.authenticate(mUser.getUsername(), password, this);
                 } else {
                     mTextFieldPassword.showError("Password can not be empty");
                 }
@@ -230,7 +230,7 @@ public class LoginFragment extends AppFragment
     public void onResponseSuccess(String tag, AppResponseObject response) {
         switch (tag) {
             case UserManager.SERVICE_GET_BASIC_INFO:
-                onGetBasicInfoResponse((GetBasicInfoResponseObject) response);
+                onGetBasicInfoResponse((GetLoginInfoResponseObject) response);
                 break;
             case UserManager.SERVICE_AUTHENTICATION:
                 onAuthenticationResponse((AuthenticateResponseObject) response);
@@ -251,10 +251,11 @@ public class LoginFragment extends AppFragment
 
     }
 
-    private void onGetBasicInfoResponse(GetBasicInfoResponseObject responseObject) {
+    private void onGetBasicInfoResponse(GetLoginInfoResponseObject responseObject) {
         boolean isSuccess = responseObject.getStatus();
         if (isSuccess) {
-            mTextViewUsername.setText(responseObject.getResponseData().getUser().getUsername());
+            mUser = responseObject.getResponseData().getUser();
+            mTextViewUsername.setText(String.format("%s %s",mUser.getFirstName(),mUser.getLastName()));
             mTextFieldPassword.setText("");
             showPasswordLayout();
         } else {
@@ -266,7 +267,8 @@ public class LoginFragment extends AppFragment
     private void onAuthenticationResponse(AuthenticateResponseObject responseObject) {
         boolean isSuccess = responseObject.getStatus();
         if (isSuccess) {
-            mManager.saveSignIn(responseObject.getResponseData().getUser(), responseObject.getResponseData().getKey());
+            mManager.saveAuthenticationKey(responseObject.getResponseData().getKey());
+            mManager.saveUser(mUser);
             getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
         } else {
             String message = responseObject.getMessage();
@@ -280,8 +282,9 @@ public class LoginFragment extends AppFragment
         switch (dialog.getTag()) {
             case AppDialogBuilder.DIALOG_GUEST_LOGIN:
                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                    User user = mManager.createGuestUser(mTextFieldUsername.getText().toString());
-                    mManager.saveSignIn(user, "");
+                    mUser = mManager.createGuestUser(mTextFieldUsername.getText().toString());
+                    mManager.saveAuthenticationKey("");
+                    mManager.saveUser(mUser);
                     getNavigator().navigateToFirstLevelFragment(new HomeFragment(), null);
                 }
                 break;

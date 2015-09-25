@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartboox.travel.appimplementation.domain.model.User;
 import com.smartboox.travel.appimplementation.service.AppResponseObject;
 
-public class GetBasicInfoResponseObject extends AppResponseObject<GetBasicInfoResponseObject.GetBasicInfoResponseData> {
+public class GetLoginInfoResponseObject extends AppResponseObject<GetLoginInfoResponseObject.GetBasicInfoResponseData> {
     public class GetBasicInfoResponseData {
         @JsonProperty("user")
         private User mUser;

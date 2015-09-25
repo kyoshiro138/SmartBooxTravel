@@ -57,7 +57,7 @@ public class MenuFragment extends AppFragment implements AdapterView.OnItemClick
 
     public void loadMenu(User user) {
         if (user != null) {
-            mTvUsername.setText(user.getUsername());
+            mTvUsername.setText(String.format("%s %s",user.getFirstName(),user.getLastName()));
 
             List<MenuItem> menuList = new ArrayList<>();
             if (user.getUserId() > 0) {
