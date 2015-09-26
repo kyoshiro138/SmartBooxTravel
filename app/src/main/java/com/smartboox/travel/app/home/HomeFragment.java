@@ -1,28 +1,42 @@
 package com.smartboox.travel.app.home;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.android.volley.VolleyError;
 import com.smartboox.travel.R;
 import com.smartboox.travel.app.locationlist.LocationListFragment;
 import com.smartboox.travel.app.placemap.PlaceMapFragment;
+import com.smartboox.travel.appimplementation.dialog.AppDialogBuilder;
 import com.smartboox.travel.appimplementation.domain.model.TravelPlace;
 import com.smartboox.travel.appimplementation.fragment.AppFragment;
-import com.smartboox.travel.appimplementation.manager.PlaceManager;
+import com.smartboox.travel.appimplementation.manager.TravelManager;
 import com.smartboox.travel.appimplementation.manager.UserManager;
+import com.smartboox.travel.appimplementation.service.AppResponseObject;
+import com.smartboox.travel.appimplementation.service.response.GetTravelDataResponseObject;
 import com.smartboox.travel.core.adapter.OnItemButtonClickListener;
+import com.smartboox.travel.core.database.ActiveAndroidDatabaseHelper;
+import com.smartboox.travel.core.dialog.Dialog;
+import com.smartboox.travel.core.dialog.OnDialogButtonClickListener;
+import com.smartboox.travel.core.service.client.OnServiceResponseListener;
 import com.smartboox.travel.core.view.gridview.AnimationGridView;
 import com.smartboox.travel.core.view.gridview.OnGridHiddenListener;
 import com.smartboox.travel.utils.DummyCreator;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends AppFragment implements AdapterView.OnItemClickListener, OnItemButtonClickListener {
-    private UserManager mUserManager;
-    private PlaceManager mPlaceManager;
+public class HomeFragment extends AppFragment implements AdapterView.OnItemClickListener, OnItemButtonClickListener, OnServiceResponseListener<AppResponseObject>,OnDialogButtonClickListener {
+
     private AnimationGridView mPlaceGrid;
+    private PlaceGridAdapter mPlaceGridAdapter;
+
+    private UserManager mUserManager;
+    private TravelManager mTravelManager;
+    private AppDialogBuilder mDialogBuilder;
 
     @Override
     protected int getFragmentLayoutResource() {
@@ -45,20 +59,16 @@ public class HomeFragment extends AppFragment implements AdapterView.OnItemClick
     @Override
     protected void loadData() {
         mUserManager = new UserManager(getActivity());
-        mPlaceManager = new PlaceManager();
+        mTravelManager = new TravelManager(getActivity());
+        mDialogBuilder = new AppDialogBuilder(getActivity());
 
         mActivity.reloadMenu(mUserManager.getLocalUser());
         mActivity.getToolbar().reloadToolbar("Where are you travelling?");
 
-        List<TravelPlace> placeList = mPlaceManager.getTravelPlaceList();
-        if (placeList == null || placeList.size() <= 0) {
-            placeList = DummyCreator.createTravelPlaceList();
-            mPlaceManager.saveTravelPlaceList(placeList);
-        }
+        mTravelManager.requestTravelData(0, this);
 
-        PlaceGridAdapter adapter = new PlaceGridAdapter(getActivity(), placeList);
-        adapter.setOnItemButtonClickListener(this);
-        mPlaceGrid.showGrid(adapter, R.anim.anim_scale_appear);
+        mPlaceGridAdapter = new PlaceGridAdapter(getActivity(), new ArrayList<TravelPlace>());
+        mPlaceGridAdapter.setOnItemButtonClickListener(this);
     }
 
     @Override
@@ -77,6 +87,62 @@ public class HomeFragment extends AppFragment implements AdapterView.OnItemClick
             case R.id.btn_place_map:
                 TravelPlace place = (TravelPlace) view.getTag();
                 getNavigator().navigateTo(new PlaceMapFragment(), place);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onResponseSuccess(String tag, AppResponseObject response) {
+        switch (tag) {
+            case TravelManager.SERVICE_GET_TRAVEL_DATA:
+                getTravelDataResponse((GetTravelDataResponseObject) response);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onResponseFailed(String tag, VolleyError error) {
+        getLocalTravelData();
+    }
+
+    @Override
+    public void onParseError(String tag, String response) {
+
+    }
+
+    private void getTravelDataResponse(GetTravelDataResponseObject response) {
+        boolean isSuccess = response.getStatus();
+        if(isSuccess) {
+            mTravelManager.saveTravelPlaceList(response.getResponseData().getPlaceList());
+            mPlaceGridAdapter.reloadItemList(response.getResponseData().getPlaceList());
+            mPlaceGrid.showGrid(mPlaceGridAdapter, R.anim.anim_scale_appear);
+        } else {
+            getLocalTravelData();
+        }
+    }
+
+    private void getLocalTravelData() {
+        List<TravelPlace> localPlaceList = mTravelManager.getLocalTravelPlaceList();
+        if(localPlaceList!=null && !localPlaceList.isEmpty()) {
+            mPlaceGridAdapter.reloadItemList(localPlaceList);
+            mPlaceGrid.showGrid(mPlaceGridAdapter, R.anim.anim_scale_appear);
+        } else {
+            Dialog dialog = mDialogBuilder.buildWarningDialog(AppDialogBuilder.DIALOG_NETWORK_RETRY, "Network error. Please try again.", this);
+            dialog.show();
+        }
+    }
+
+    @Override
+    public void onClick(Dialog dialog, int which) {
+        switch (dialog.getTag()) {
+            case AppDialogBuilder.DIALOG_NETWORK_RETRY:
+                if(which == DialogInterface.BUTTON_POSITIVE) {
+                    mTravelManager.requestTravelData(0, this);
+                }
                 break;
             default:
                 break;

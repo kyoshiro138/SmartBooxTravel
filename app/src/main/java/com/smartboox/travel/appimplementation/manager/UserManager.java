@@ -21,10 +21,6 @@ public class UserManager {
     public static final String TEST_USERNAME = "user";
     public static final String TEST_PASSWORD = "pass";
 
-    // PREFERENCE KEYS
-    public static final String PREFERENCE_SIGNED_IN = "PREFERENCE_SIGNED_IN";
-    public static final String PREFERENCE_AUTH_KEY = "PREFERENCE_AUTH_KEY";
-
     // SERVICE KEYS
     public static final String SERVICE_GET_BASIC_INFO = "SERVICE_GET_BASIC_INFO";
     public static final String SERVICE_AUTHENTICATION = "SERVICE_AUTHENTICATION";
@@ -39,7 +35,7 @@ public class UserManager {
     }
 
     public boolean isSignedIn() {
-        return (boolean) mPreference.getValue(PREFERENCE_SIGNED_IN, false, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
+        return (boolean) mPreference.getValue(ApplicationPreference.Key.PREFERENCE_SIGNED_IN, false, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
     }
 
     public User getLocalUser() {
@@ -51,7 +47,7 @@ public class UserManager {
     }
 
     public void startGetProfile(int userId, OnServiceResponseListener<AppResponseObject> listener) {
-        String key = (String) mPreference.getValue(PREFERENCE_AUTH_KEY, "", ApplicationPreference.PREFERENCE_TYPE_STRING);
+        String key = (String) mPreference.getValue(ApplicationPreference.Key.PREFERENCE_AUTH_KEY, "", ApplicationPreference.PREFERENCE_TYPE_STRING);
 
         if (!key.equals("abc123")) {
             key = "abc";
@@ -104,12 +100,18 @@ public class UserManager {
     }
 
     public void saveAuthenticationKey(String key) {
-        mPreference.saveValue(PREFERENCE_SIGNED_IN, true, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
-        mPreference.saveValue(PREFERENCE_AUTH_KEY, key, ApplicationPreference.PREFERENCE_TYPE_STRING);
+        mPreference.saveValue(ApplicationPreference.Key.PREFERENCE_SIGNED_IN, true, ApplicationPreference.PREFERENCE_TYPE_BOOLEAN);
+        mPreference.saveValue(ApplicationPreference.Key.PREFERENCE_AUTH_KEY, key, ApplicationPreference.PREFERENCE_TYPE_STRING);
+    }
+
+    public void clearAuthenticationKey() {
+        mPreference.remove(ApplicationPreference.Key.PREFERENCE_SIGNED_IN);
+        mPreference.remove(ApplicationPreference.Key.PREFERENCE_AUTH_KEY);
     }
 
     public void signOut() {
         clearUser();
+        clearAuthenticationKey();
     }
 
     public void saveUser(User user) {
@@ -118,11 +120,6 @@ public class UserManager {
     }
 
     private void clearUser() {
-        // clear user
         ActiveAndroidDatabaseHelper.removeAll(User.class);
-
-        // Clear authentication data
-        mPreference.remove(PREFERENCE_SIGNED_IN);
-        mPreference.remove(PREFERENCE_AUTH_KEY);
     }
 }

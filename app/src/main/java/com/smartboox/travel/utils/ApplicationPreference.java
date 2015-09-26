@@ -95,4 +95,9 @@ public class ApplicationPreference {
 
         editor.apply();
     }
+
+    public class Key {
+        public static final String PREFERENCE_SIGNED_IN = "PREFERENCE_SIGNED_IN";
+        public static final String PREFERENCE_AUTH_KEY = "PREFERENCE_AUTH_KEY";
+    }
 }

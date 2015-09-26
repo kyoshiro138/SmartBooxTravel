@@ -7,26 +7,38 @@ import android.os.Parcelable;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartboox.travel.core.database.ActiveAndroidDatabaseHelper;
 
 @Table(name = "location")
 public class TravelLocation extends Model implements Parcelable {
-    @Column(name = "place_id")
-    private long mPlaceId;
+    private static final String KEY_LOCATION_ID = "locationId";
+    private static final String KEY_PLACE_ID = "placeId";
+    private static final String KEY_LOCATION_NAME = "name";
+    private static final String KEY_LOCATION_DESCRIPTION = "description";
 
-    @Column(name = "name")
+    @Column(name = KEY_LOCATION_ID)
+    @JsonProperty(KEY_LOCATION_ID)
+    private int mLocationId;
+    @Column(name = KEY_PLACE_ID)
+    @JsonProperty(KEY_PLACE_ID)
+    private int mPlaceId;
+    @Column(name = KEY_LOCATION_NAME)
+    @JsonProperty(KEY_LOCATION_NAME)
     private String mName;
+    @Column(name = KEY_LOCATION_DESCRIPTION)
+    @JsonProperty(KEY_LOCATION_DESCRIPTION)
+    private String mDescription;
 
+    public int getLocationId() { return mLocationId; }
+    public int getPlaceId() {
+        return mPlaceId;
+    }
     public String getName() {
         return mName;
     }
-
-    public long getPlaceId() {
-        return mPlaceId;
-    }
-
-    public void setPlaceId(long placeId) {
-        mPlaceId = placeId;
+    public String getDescription() {
+        return mDescription;
     }
 
     public TravelLocation() {
@@ -50,7 +62,7 @@ public class TravelLocation extends Model implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         Bundle bundle = new Bundle();
-        bundle.putLong("location_id", getId());
+        bundle.putInt(KEY_LOCATION_ID, getLocationId());
 
         dest.writeBundle(bundle);
     }
@@ -59,9 +71,9 @@ public class TravelLocation extends Model implements Parcelable {
         @Override
         public TravelLocation createFromParcel(Parcel source) {
             Bundle bundle = source.readBundle();
-            long id = bundle.getLong("location_id");
+            int id = bundle.getInt(KEY_LOCATION_ID);
 
-            return ActiveAndroidDatabaseHelper.getItem(TravelLocation.class, id);
+            return ActiveAndroidDatabaseHelper.getItemById(TravelLocation.class, KEY_LOCATION_ID, id);
         }
 
         @Override

@@ -44,11 +44,7 @@ public class IntroFragment extends AppFragment implements OnServiceResponseListe
 
         if (isSignedIn && haveUser) {
             logDebug(user.toString());
-            if (user.getUserType() > 0) {
-                mManager.startGetProfile(user.getUserId(), this);
-            } else {
-                navigateToHomeScreen();
-            }
+            navigateToHomeScreen();
         } else {
             navigateToLoginScreen();
         }

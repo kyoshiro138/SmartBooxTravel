@@ -6,19 +6,36 @@ import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ActiveAndroidDatabaseHelper {
 
-    public static <T extends Model> T getItem(Class<T> table, long id) {
+    public static <T extends Model> T getItemById(Class<T> table, long id) {
         return new Select()
                 .from(table)
                 .where("Id = ?", id)
                 .executeSingle();
     }
 
+    public static <T extends Model> T getItemById(Class<T> table, String column, int id) {
+        String whereClause = String.format("%s = ?",column);
+        return new Select()
+                .from(table)
+                .where(whereClause, id)
+                .executeSingle();
+    }
+
     public static <T extends Model> List<T> getList(Class<T> table) {
         return new Select()
                 .from(table)
+                .execute();
+    }
+
+    public static <T extends Model> List<T> getListById(Class<T> table, String column, int id) {
+        String whereClause = String.format("%s = ?",column);
+        return new Select()
+                .from(table)
+                .where(whereClause,id)
                 .execute();
     }
 
